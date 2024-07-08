@@ -1,29 +1,31 @@
+// Booking.kt
 package com.example.model
 
 import jakarta.persistence.*
 import java.time.LocalDate
-import javax.print.attribute.standard.Destination
 
 @Entity
 data class Booking(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long?,
+    val id: Long? = null,
 
     @ManyToOne
-    val user: User,
+    @JoinColumn(name = "user_id")
+    val user: User? = null,
 
     @ManyToOne
-    val destination: Destination,
+    @JoinColumn(name = "destination_id")
+    val destination: Destination? = null,
 
     @ManyToOne
-    val hotel: Hotel,
+    @JoinColumn(name = "hotel_id")
+    val hotel: Hotel? = null,
 
     @ManyToOne
-    val flight: Flight,
+    @JoinColumn(name = "flight_id")
+    val flight: Flight? = null,
 
-    val bookingDate: LocalDate,
-    val totalCost: Double,
+    val bookingDate: LocalDate? = null,
+    val totalCost: Double? = null,
 )
-
-
