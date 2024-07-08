@@ -15,5 +15,5 @@ data class Flight(
     val arrival: String? = null,
     val duration: Double? = null,
     val price: Double? = null,
-    val airline: String? = null
+    val airline: String? = null,
 )

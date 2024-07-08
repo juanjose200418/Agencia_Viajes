@@ -2,6 +2,7 @@ package com.example.crud
 
 import com.example.model.Flight
 import com.example.repository.FlightRepository
+import com.example.service.FlightService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -9,15 +10,15 @@ import org.springframework.web.bind.annotation.*
 @RestController
 class FlightController {
     @Autowired
-    lateinit var flightRepository: FlightRepository
+    lateinit var flightService: FlightService
 
     @GetMapping("/flights")
-    fun getAll():List<Flight>{
-        return flightRepository.findAll()
+    fun getAll(): List<Flight> {
+        return flightService.getAll()
     }
+
     @PostMapping("/flights")
-    fun create(@RequestBody flight: Flight):ResponseEntity<Flight>{
-        val savedFlight = flightRepository.save(flight)
-        return ResponseEntity.ok(savedFlight)
+    fun create (@RequestBody flight: Flight): Flight {
+        return flightService.save(flight)
     }
 }

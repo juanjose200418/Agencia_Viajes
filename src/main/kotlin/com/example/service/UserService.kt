@@ -14,4 +14,7 @@ class UserService {
     fun getAll(): List<User> {
         return userRepository.findAll()
     }
+    fun save(user: User ): User{
+        return userRepository.save(user)
+    }
 }
