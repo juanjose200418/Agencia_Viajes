@@ -1,3 +1,4 @@
+// User.kt
 package com.example.model
 
 import jakarta.persistence.*
@@ -7,11 +8,11 @@ import jakarta.persistence.*
 data class User(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long?,
-    val name: String,
-    val email: String,
-    val password: String,
-    val phone: String,
-    val address: String,
-    val role: String,
+    val id: Long? = null,
+    val name: String? = null,
+    val email: String? = null,
+    val password: String? = null,
+    val phone: String? = null,
+    val address: String? = null,
+    val role: String? = null,
 )
