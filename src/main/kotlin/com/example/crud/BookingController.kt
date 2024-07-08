@@ -5,10 +5,7 @@ import com.example.repository.BookingRepository
 import com.example.service.BookingService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 
 @RestController
 class BookingController {
@@ -22,5 +19,9 @@ class BookingController {
     @PostMapping("/bookings")
     fun create(@RequestBody booking: Booking): Booking {
         return bookingService.create(booking)
+    }
+    @GetMapping("/bookings/{id}")
+    fun getById(@PathVariable id: Long): Booking {
+        return bookingService.getById(id)
     }
 }
