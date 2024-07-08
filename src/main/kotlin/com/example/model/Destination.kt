@@ -1,5 +1,7 @@
+// Destination.kt
 package com.example.model
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import jakarta.persistence.*
 
 @Entity
@@ -14,6 +16,7 @@ data class Destination(
     val popularAttractions: String? = null,
     val averageCost: Double? = null,
 
+    @JsonIgnore
     @OneToMany(mappedBy = "destination")
     val hotels: MutableList<Hotel> = mutableListOf()
 )
