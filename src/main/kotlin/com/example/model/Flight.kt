@@ -9,11 +9,11 @@ import jakarta.persistence.Id
 data class Flight(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long?,
-    val flightNumber: String,
-    val departure: String,
-    val arrival: String,
-    val duration: Double,
-    val price: Double,
-    val airline: String,
+    val id: Long? = null,
+    val flightNumber: String? = null,
+    val departure: String? = null,
+    val arrival: String? = null,
+    val duration: Double? = null,
+    val price: Double? = null,
+    val airline: String? = null
 )
