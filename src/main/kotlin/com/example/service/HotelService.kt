@@ -29,4 +29,10 @@ class HotelService {
     fun existsById(id: Long): Boolean {
         return hotelRepository.existsById(id)
     }
+    fun deleteById(id: Long){
+       if (!hotelRepository.existsById(id)){
+           throw ResourceNotFoundException("Hotel with id $id does not exist")
+       }
+        hotelRepository.deleteById(id)
+    }
 }

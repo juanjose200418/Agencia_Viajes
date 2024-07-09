@@ -28,5 +28,11 @@ class DestinationService {
     fun existsById(id: Long): Boolean {
         return destinationRepository.existsById(id)
     }
+    fun deleteById(id: Long){
+        if(!destinationRepository.existsById(id)){
+            throw ResourceNotFoundException("Destination with id $id does not exist")
+        }
+        destinationRepository.deleteById(id)
+    }
 }
 

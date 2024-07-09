@@ -6,6 +6,7 @@ import com.example.repository.HotelRepository
 import com.example.service.HotelService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
+import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
@@ -32,5 +33,9 @@ class HotelController {
     @GetMapping("/hotels/{id}")
     fun getById(@PathVariable id: Long): Hotel {
         return hotelService.getById(id)
+    }
+    @DeleteMapping("/hotels/{id}")
+    fun deleteById(@PathVariable id: Long){
+        hotelService.deleteById(id)
     }
 }

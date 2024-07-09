@@ -29,4 +29,11 @@ class FlightService {
         return flightRepository.existsById(id)
 
     }
+
+    fun deleteById(id: Long) {
+        if(!flightRepository.existsById(id)){
+            throw ResourceNotFoundException("Flight ith id $id does not exist")
+        }
+        flightRepository.deleteById(id)
+    }
 }

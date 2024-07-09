@@ -1,11 +1,8 @@
 package com.example.crud
 
 import com.example.model.Flight
-import com.example.repository.FlightRepository
 import com.example.service.FlightService
-import jakarta.persistence.Id
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
 @RestController
@@ -26,5 +23,9 @@ class FlightController {
     @GetMapping("/flights/{id}")
     fun getById(@PathVariable id: Long): Flight{
         return flightService.getById(id)
+    }
+    @DeleteMapping("/flights/{id}")
+    fun deleteById(@PathVariable id : Long){
+        return flightService.deleteById(id)
     }
 }

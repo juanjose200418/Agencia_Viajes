@@ -29,4 +29,10 @@ class UserService {
     fun existsById(id: Long): Boolean {
         return userRepository.existsById(id)
     }
+    fun deleteById(id: Long){
+        if(!userRepository.existsById(id)){
+            throw ResourceNotFoundException("User with $id does not exist")
+        }
+        userRepository.deleteById(id)
+    }
 }
