@@ -1,6 +1,5 @@
-package com.example.crud
+package com.example.exception
 
-import com.example.exception.ResourceNotFoundException
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.ControllerAdvice
