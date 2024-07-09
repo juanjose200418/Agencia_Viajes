@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
-
 class HotelController {
+
     @Autowired
     lateinit var hotelService: HotelService
 
@@ -28,8 +28,9 @@ class HotelController {
     fun create(@RequestBody hotel: Hotel): Hotel {
         return hotelService.create(hotel)
     }
+
     @GetMapping("/hotels/{id}")
-    fun getById(@PathVariable id : Long):Hotel{
+    fun getById(@PathVariable id: Long): Hotel {
         return hotelService.getById(id)
     }
 }

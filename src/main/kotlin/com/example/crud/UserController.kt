@@ -12,7 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
-class UserController() {
+class UserController {
+
     @Autowired
     lateinit var userService: UserService
 
@@ -24,10 +25,10 @@ class UserController() {
     @PostMapping("/users")
     fun create(@RequestBody user: User): User {
         return userService.create(user)
-
     }
+
     @GetMapping("/users/{id}")
-    fun getById(@PathVariable id : Long): User{
+    fun getById(@PathVariable id: Long): User {
         return userService.getById(id)
     }
 }

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*
 
 @RestController
 class FlightController {
+
     @Autowired
     lateinit var flightService: FlightService
 

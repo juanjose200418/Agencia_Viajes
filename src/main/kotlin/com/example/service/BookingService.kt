@@ -49,4 +49,11 @@ class BookingService {
             ResourceNotFoundException("Booking with id $id does not exist")
         }
     }
+
+    fun deleteById(id: Long) {
+        if (!bookingRepository.existsById(id)) {
+            throw ResourceNotFoundException("Booking with id $id does not exist")
+        }
+        bookingRepository.deleteById(id)
+    }
 }

@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository
 
 @Repository
 interface HotelRepository: JpaRepository<Hotel, Long> {
+
 }

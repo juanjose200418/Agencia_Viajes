@@ -22,7 +22,7 @@ class DestinationController {
 
     @PostMapping("/destinations")
     fun create(@RequestBody destination: Destination): Destination {
-        return destinationService.save(destination)
+        return destinationService.create(destination)
     }
 
     @GetMapping("/destinations/{id}")

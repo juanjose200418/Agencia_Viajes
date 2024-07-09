@@ -15,7 +15,7 @@ class DestinationService {
         return destinationRepository.findAll()
     }
 
-    fun save(destination: Destination): Destination {
+    fun create(destination: Destination): Destination {
         return destinationRepository.save(destination)
     }
 

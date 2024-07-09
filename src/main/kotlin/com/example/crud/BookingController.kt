@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*
 
 @RestController
 class BookingController {
+
     @Autowired
     lateinit var bookingService: BookingService
 
@@ -25,5 +26,10 @@ class BookingController {
     @GetMapping("/bookings/{id}")
     fun getById(@PathVariable id: Long): Booking {
         return bookingService.getById(id)
+    }
+
+    @DeleteMapping("bookings/{id}")
+    fun deleteById(@PathVariable id: Long) {
+        bookingService.deleteById(id)
     }
 }
