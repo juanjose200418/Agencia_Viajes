@@ -1,5 +1,6 @@
 package com.example.service
 
+import com.example.exception.ResourceNotFoundException
 import com.example.model.Flight
 import com.example.repository.FlightRepository
 import org.springframework.beans.factory.annotation.Autowired
@@ -14,7 +15,18 @@ class FlightService {
         return flightRepository.findAll()
     }
 
-    fun save(flight: Flight): Flight {
+    fun create(flight: Flight): Flight {
         return flightRepository.save(flight)
+    }
+
+    fun getById(id: Long): Flight {
+        return flightRepository.findById(id).orElseThrow {
+            ResourceNotFoundException("Flight with id $id does not exist")
+        }
+    }
+
+    fun existsById(id: Long): Boolean {
+        return flightRepository.existsById(id)
+
     }
 }
