@@ -21,8 +21,7 @@ class DestinationService {
 
     fun getById(id: Long): Destination {
         return destinationRepository.findById(id).orElseThrow {
-            //la excepcion
-            ResourceNotFoundException("Booking with id $id does not exist")
+            ResourceNotFoundException("Destination with id $id does not exist")
         }
     }
 
