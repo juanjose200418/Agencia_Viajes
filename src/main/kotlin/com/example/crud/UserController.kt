@@ -6,6 +6,7 @@ import com.example.service.UserService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RestController
@@ -22,7 +23,12 @@ class UserController() {
 
     @PostMapping("/users")
     fun create(@RequestBody user: User): User {
-        return userService.save(user)
+        return userService.create(user)
 
     }
+    @GetMapping("/users/{id}")
+    fun getById(@PathVariable id : Long): User{
+        return userService.getById(id)
+    }
 }
+
