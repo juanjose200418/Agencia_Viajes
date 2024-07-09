@@ -1,5 +1,6 @@
 package com.example.service
 
+import com.example.exception.ResourceNotFoundException
 import com.example.model.Destination
 import com.example.repository.DestinationRepository
 import org.springframework.beans.factory.annotation.Autowired
@@ -17,4 +18,16 @@ class DestinationService {
     fun save(destination: Destination): Destination {
         return destinationRepository.save(destination)
     }
+
+    fun getById(id: Long): Destination {
+        return destinationRepository.findById(id).orElseThrow {
+            //la excepcion
+            ResourceNotFoundException("Booking with id $id does not exist")
+        }
+    }
+
+    fun existsById(id: Long): Boolean {
+        return destinationRepository.existsById(id)
+    }
 }
+

@@ -4,6 +4,7 @@ import com.example.model.Destination
 import com.example.service.DestinationService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RestController
@@ -23,4 +24,10 @@ class DestinationController {
     fun create(@RequestBody destination: Destination): Destination {
         return destinationService.save(destination)
     }
+
+    @GetMapping("/destinations/{id}")
+    fun getById(@PathVariable id : Long):Destination{
+        return destinationService.getById(id)
+    }
+
 }
