@@ -13,13 +13,15 @@ class BookingController {
     lateinit var bookingService: BookingService
 
     @GetMapping("/bookings")
-    fun getAll():List<Booking>{
+    fun getAll(): List<Booking> {
         return bookingService.getAll()
     }
+
     @PostMapping("/bookings")
     fun create(@RequestBody booking: Booking): Booking {
         return bookingService.create(booking)
     }
+
     @GetMapping("/bookings/{id}")
     fun getById(@PathVariable id: Long): Booking {
         return bookingService.getById(id)
