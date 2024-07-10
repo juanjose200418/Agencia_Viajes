@@ -21,7 +21,7 @@ data class Destination(
 
     val averageCost: Double? = null,
 
-    var deletedDestination: Boolean = false,
+    var deleted: Boolean = false,
 
     @JsonIgnore
     @OneToMany(mappedBy = "destination")

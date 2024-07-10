@@ -2,7 +2,6 @@ package com.example.service
 
 import com.example.exception.ResourceNotFoundException
 import com.example.model.Destination
-import com.example.repository.BookingRepository
 import com.example.repository.DestinationRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
@@ -34,7 +33,7 @@ class DestinationService {
             throw ResourceNotFoundException("Destination with id $id does not exist")
         }
         val destination = destinationRepository.getReferenceById(id)
-        destination.deletedDestination = true
+        destination.deleted = true
         destinationRepository.save(destination)
     }
 }
