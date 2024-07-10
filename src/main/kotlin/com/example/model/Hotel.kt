@@ -56,6 +56,9 @@ data class Hotel(
 
     val accessibility: String? = null,
 
+    var deleted: Boolean? = null,
+
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "destination_id")
     var destination: Destination? = null

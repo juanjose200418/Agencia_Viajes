@@ -13,7 +13,7 @@ class HotelService {
     lateinit var hotelRepository: HotelRepository
 
     fun getAll(): List<Hotel> {
-        return hotelRepository.findAll()
+        return hotelRepository.findAllByDeleted(false)
     }
 
     fun create(hotel: Hotel): Hotel {
@@ -33,6 +33,8 @@ class HotelService {
        if (!hotelRepository.existsById(id)){
            throw ResourceNotFoundException("Hotel with id $id does not exist")
        }
-        hotelRepository.deleteById(id)
+        val hotel = hotelRepository.getReferenceById(id)
+        hotel.deleted = true
+        hotelRepository.save(hotel)
     }
 }
