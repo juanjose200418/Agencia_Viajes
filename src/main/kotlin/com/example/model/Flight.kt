@@ -23,4 +23,6 @@ data class Flight(
     val price: Double? = null,
 
     val airline: String? = null,
+
+    var deleted: Boolean? = false,
 )

@@ -12,7 +12,7 @@ class FlightService {
     lateinit var flightRepository: FlightRepository
 
     fun getAll(): List<Flight> {
-        return flightRepository.findAll()
+        return flightRepository.findAllByDeleted(false)
     }
 
     fun create(flight: Flight): Flight {
@@ -34,6 +34,8 @@ class FlightService {
         if(!flightRepository.existsById(id)){
             throw ResourceNotFoundException("Flight ith id $id does not exist")
         }
-        flightRepository.deleteById(id)
+       val flight = flightRepository.getReferenceById(id)
+        flight.deleted = true
+        flightRepository.save(flight)
     }
 }
