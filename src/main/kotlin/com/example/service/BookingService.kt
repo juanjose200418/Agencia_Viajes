@@ -24,7 +24,7 @@ class BookingService {
     lateinit var hotelService: HotelService
 
     fun getAll(): List<Booking> {
-        return bookingRepository.findAll()
+        return bookingRepository.findAllByDeleted(false)
     }
 
     fun create(booking: Booking): Booking {
@@ -54,6 +54,9 @@ class BookingService {
         if (!bookingRepository.existsById(id)) {
             throw ResourceNotFoundException("Booking with id $id does not exist")
         }
-        bookingRepository.deleteById(id)
+        //Creacin del soft delete
+        val booking = bookingRepository.getReferenceById(id)
+        booking.deleted = true
+        bookingRepository.save(booking)
     }
 }

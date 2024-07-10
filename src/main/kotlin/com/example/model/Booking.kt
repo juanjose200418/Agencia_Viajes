@@ -26,6 +26,7 @@ data class Booking(
     @JoinColumn(name = "flight_id")
     val flight: Flight? = null,
 
+    var deleted: Boolean? = false,
     val bookingDate: LocalDate? = null,
     val totalCost: Double? = null,
 )
