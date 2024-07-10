@@ -12,7 +12,7 @@ class DestinationService {
     lateinit var destinationRepository: DestinationRepository
 
     fun getAll(): List<Destination> {
-        return destinationRepository.finAllByDeleted(false)
+        return destinationRepository.findAllByDeleted(false)
     }
 
     fun create(destination: Destination): Destination {
