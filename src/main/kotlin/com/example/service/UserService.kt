@@ -14,7 +14,7 @@ class UserService {
     lateinit var userRepository: UserRepository
 
     fun getAll(): List<User> {
-        return userRepository.findAll()
+        return userRepository.findAllByDeleted(false)
     }
 
     fun create(user: User): User {
@@ -33,6 +33,8 @@ class UserService {
         if(!userRepository.existsById(id)){
             throw ResourceNotFoundException("User with $id does not exist")
         }
-        userRepository.deleteById(id)
+        val user = userRepository.getReferenceById(id)
+        user.deleted = true
+        userRepository.save(user)
     }
 }

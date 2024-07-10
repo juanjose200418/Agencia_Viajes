@@ -8,7 +8,6 @@ import jakarta.persistence.*
 data class User(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     val id: Long? = null,
 
     val name: String? = null,
@@ -22,4 +21,7 @@ data class User(
     val address: String? = null,
 
     val role: String? = null,
+
+    var deleted: Boolean? = false,
+
 )
