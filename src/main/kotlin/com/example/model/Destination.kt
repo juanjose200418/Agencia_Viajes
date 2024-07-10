@@ -21,6 +21,8 @@ data class Destination(
 
     val averageCost: Double? = null,
 
+    var deletedDestination: Boolean = false,
+
     @JsonIgnore
     @OneToMany(mappedBy = "destination")
     val hotels: MutableList<Hotel> = mutableListOf()

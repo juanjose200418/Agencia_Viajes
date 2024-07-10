@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository
 
 @Repository
 interface DestinationRepository : JpaRepository<Destination, Long> {
-
+    fun finAllByDeleted(deleteDestination: Boolean): List<Destination>
 }

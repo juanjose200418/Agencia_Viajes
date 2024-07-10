@@ -2,6 +2,7 @@ package com.example.service
 
 import com.example.exception.ResourceNotFoundException
 import com.example.model.Destination
+import com.example.repository.BookingRepository
 import com.example.repository.DestinationRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
@@ -12,7 +13,7 @@ class DestinationService {
     lateinit var destinationRepository: DestinationRepository
 
     fun getAll(): List<Destination> {
-        return destinationRepository.findAll()
+        return destinationRepository.finAllByDeleted(false)
     }
 
     fun create(destination: Destination): Destination {
@@ -32,7 +33,9 @@ class DestinationService {
         if(!destinationRepository.existsById(id)){
             throw ResourceNotFoundException("Destination with id $id does not exist")
         }
-        destinationRepository.deleteById(id)
+        val destination = destinationRepository.getReferenceById(id)
+        destination.deletedDestination = true
+        destinationRepository.save(destination)
     }
 }
 
