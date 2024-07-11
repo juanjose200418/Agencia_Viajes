@@ -1,10 +1,13 @@
 package com.example.service
 
 import com.example.exception.ResourceNotFoundException
+import com.example.exception.ValidatorException
 import com.example.model.Flight
 import com.example.repository.FlightRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
+import org.springframework.web.bind.annotation.PathVariable
+import org.springframework.web.bind.annotation.RequestBody
 
 @Service
 class FlightService {
@@ -31,11 +34,23 @@ class FlightService {
     }
 
     fun deleteById(id: Long) {
-        if(!flightRepository.existsById(id)){
-            throw ResourceNotFoundException("Flight ith id $id does not exist")
-        }
+        chekExist(id)
        val flight = flightRepository.getReferenceById(id)
         flight.deleted = true
         flightRepository.save(flight)
+    }
+
+    private fun chekExist(id: Long) {
+        if (!flightRepository.existsById(id)) {
+            throw ResourceNotFoundException("Flight ith id $id does not exist")
+        }
+    }
+
+    fun update(@PathVariable id: Long, @RequestBody flight: Flight):Flight{
+        chekExist(id)
+        if (flight.id != id) {
+            throw ValidatorException("Hotel with id $id does not update")
+        }
+        return flightRepository.save(flight)
     }
 }
