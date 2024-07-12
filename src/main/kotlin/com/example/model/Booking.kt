@@ -50,4 +50,3 @@ data class Booking(
     var flight: Flight? = null
 
 }
-
