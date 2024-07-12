@@ -11,15 +11,15 @@ data class Destination(
     val id: Long? = null,
 
     @Column(unique = true)
-    val name: String? = null,
+    var name: String? = null,
 
-    val description: String? = null,
+    var description: String? = null,
 
-    val location: String? = null,
+    var location: String? = null,
 
-    val popularAttractions: String? = null,
+    var popularAttractions: String? = null,
 
-    val averageCost: Double? = null,
+    var averageCost: Double? = null,
 
     var deleted: Boolean? = false,
 
