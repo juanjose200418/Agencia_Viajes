@@ -23,6 +23,7 @@ class UserService {
     fun create(user: User): User {
         return userRepository.save(user)
     }
+
     fun getById(id: Long): User {
         return userRepository.findById(id).orElseThrow {
             ResourceNotFoundException("User with id $id does not exist")
@@ -32,7 +33,8 @@ class UserService {
     fun existsById(id: Long): Boolean {
         return userRepository.existsById(id)
     }
-    fun deleteById(id: Long){
+
+    fun deleteById(id: Long) {
         checkExist(id)
         val user = userRepository.getReferenceById(id)
         user.deleted = true
@@ -45,10 +47,10 @@ class UserService {
         }
     }
 
-    fun update(@PathVariable id : Long, @RequestBody user: User): User{
+    fun update(id: Long, user: User): User {
         checkExist(id)
-        if (user.id != id){
-         throw AnotherException ("User with id $id does not update")
+        if (user.id != id) {
+            throw AnotherException("User with id $id does not update")
         }
         return userRepository.save(user)
     }
