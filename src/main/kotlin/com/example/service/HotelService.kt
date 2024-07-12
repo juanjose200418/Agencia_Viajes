@@ -1,7 +1,7 @@
 package com.example.service
 
+import com.example.exception.AnotherException
 import com.example.exception.ResourceNotFoundException
-import com.example.exception.ValidatorException
 import com.example.model.Hotel
 import com.example.repository.HotelRepository
 import org.springframework.beans.factory.annotation.Autowired
@@ -46,7 +46,7 @@ class HotelService {
     fun update(id: Long, hotel: Hotel): Hotel {
        checkExists(id)
         if (hotel.id != id){
-            throw ValidatorException("Hotel with id $id does not update")
+            throw AnotherException("Hotel with id $id does not update")
         }
         return hotelRepository.save(hotel)
     }

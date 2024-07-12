@@ -12,8 +12,9 @@ class GlobalExceptionHandler {
     fun handleResourceNotFoundException(ex: ResourceNotFoundException): ResponseEntity<String> {
         return ResponseEntity(ex.message, HttpStatus.NOT_FOUND)
     }
-    @ExceptionHandler(ResourceNotFoundException::class)
-    fun ValidatorException(ex: ResourceNotFoundException): ResponseEntity<String> {
+
+    @ExceptionHandler(AnotherException::class)
+    fun handleAnotherException(ex: AnotherException): ResponseEntity<String> {
         return ResponseEntity(ex.message, HttpStatus.BAD_REQUEST)
     }
 }

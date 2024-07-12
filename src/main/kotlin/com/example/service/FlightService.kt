@@ -1,7 +1,7 @@
 package com.example.service
 
+import com.example.exception.AnotherException
 import com.example.exception.ResourceNotFoundException
-import com.example.exception.ValidatorException
 import com.example.model.Flight
 import com.example.repository.FlightRepository
 import org.springframework.beans.factory.annotation.Autowired
@@ -49,7 +49,7 @@ class FlightService {
     fun update(@PathVariable id: Long, @RequestBody flight: Flight):Flight{
         chekExist(id)
         if (flight.id != id) {
-            throw ValidatorException("Hotel with id $id does not update")
+            throw AnotherException("Hotel with id $id does not update")
         }
         return flightRepository.save(flight)
     }

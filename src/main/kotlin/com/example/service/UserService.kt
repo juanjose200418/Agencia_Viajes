@@ -1,7 +1,7 @@
 package com.example.service
 
+import com.example.exception.AnotherException
 import com.example.exception.ResourceNotFoundException
-import com.example.exception.ValidatorException
 import com.example.model.Hotel
 import com.example.model.User
 import com.example.repository.UserRepository
@@ -48,7 +48,7 @@ class UserService {
     fun update(@PathVariable id : Long, @RequestBody user: User): User{
         checkExist(id)
         if (user.id != id){
-         throw ValidatorException ("User with id $id does not update")  
+         throw AnotherException ("User with id $id does not update")
         }
         return userRepository.save(user)
     }
