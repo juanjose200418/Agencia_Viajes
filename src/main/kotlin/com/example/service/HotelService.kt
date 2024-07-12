@@ -44,8 +44,8 @@ class HotelService {
     }
 
     fun update(id: Long, hotel: Hotel): Hotel {
-       checkExists(id)
-        if (hotel.id != id){
+        checkExists(id)
+        if (hotel.id != id) {
             throw AnotherException("Hotel with id $id does not update")
         }
         return hotelRepository.save(hotel)

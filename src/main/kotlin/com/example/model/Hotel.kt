@@ -1,5 +1,6 @@
 package com.example.model
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import jakarta.persistence.*
 
 @Entity
@@ -58,8 +59,11 @@ data class Hotel(
 
     var deleted: Boolean? = null,
 
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "destination_id")
+    @Column(name = "destination_id")
+    var destinationId: Long? = null
+) {
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "destination_id", insertable = false, nullable = false, updatable = false)
     var destination: Destination? = null
-)
+}
