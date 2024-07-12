@@ -1,5 +1,6 @@
 package com.example.service
 
+import com.example.exception.AnotherException
 import com.example.exception.ResourceNotFoundException
 import com.example.model.Booking
 import com.example.repository.BookingRepository
@@ -28,17 +29,17 @@ class BookingService {
     }
 
     fun create(booking: Booking): Booking {
-        if (!hotelService.existsById(booking.hotel!!.id!!)) {
-            throw ResourceNotFoundException("Hotel with id ${booking.hotel!!.id!!} does not exist")
+        if (!hotelService.existsById(booking.hotelId!!)) {
+            throw ResourceNotFoundException("Hotel with id ${booking.hotelId} does not exist")
         }
-        if (!userService.existsById(booking.user!!.id!!)) {
-            throw ResourceNotFoundException("User with id ${booking.user!!.id!!} does not exist")
+        if (!userService.existsById(booking.userId!!)) {
+            throw ResourceNotFoundException("User with id ${booking.userId} does not exist")
         }
-        if (!flightService.existsById(booking.flight!!.id!!)) {
-            throw ResourceNotFoundException("Flight with id ${booking.flight!!.id!!} does not exist")
+        if (!flightService.existsById(booking.flightId!!)) {
+            throw ResourceNotFoundException("Flight with id ${booking.flightId} does not exist")
         }
-        if (!destinationService.existsById(booking.destination!!.id!!)) {
-            throw ResourceNotFoundException("Destination with id ${booking.destination!!.id!!} does not exist")
+        if (!destinationService.existsById(booking.destinationId!!)) {
+            throw ResourceNotFoundException("Destination with id ${booking.destinationId} does not exist")
         }
 
         return bookingRepository.save(booking)
@@ -51,12 +52,24 @@ class BookingService {
     }
 
     fun deleteById(id: Long) {
-        if (!bookingRepository.existsById(id)) {
-            throw ResourceNotFoundException("Booking with id $id does not exist")
-        }
+        checkExist(id)
         //Creacin del soft delete
         val booking = bookingRepository.getReferenceById(id)
         booking.deleted = true
         bookingRepository.save(booking)
+    }
+
+    private fun checkExist(id: Long) {
+        if (!bookingRepository.existsById(id)) {
+            throw ResourceNotFoundException("Booking with id $id does not exist")
+        }
+    }
+
+    fun update(id: Long, booking: Booking): Booking {
+        checkExist(id)
+        if (booking.id != id) {
+            throw AnotherException("Booking with id $id does not exist")
+        }
+        return bookingRepository.save(booking)
     }
 }
