@@ -28,4 +28,8 @@ class FlightController {
     fun deleteById(@PathVariable id : Long){
         return flightService.deleteById(id)
     }
+    @PutMapping("flights/{id}")
+    fun update(@PathVariable id: Long, @RequestBody flight: Flight):Flight{
+        return flightService.update(id, flight)
+    }
 }

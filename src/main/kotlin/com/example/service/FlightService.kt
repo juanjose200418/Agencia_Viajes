@@ -35,7 +35,7 @@ class FlightService {
 
     fun deleteById(id: Long) {
         chekExist(id)
-       val flight = flightRepository.getReferenceById(id)
+        val flight = flightRepository.getReferenceById(id)
         flight.deleted = true
         flightRepository.save(flight)
     }
@@ -46,7 +46,7 @@ class FlightService {
         }
     }
 
-    fun update(@PathVariable id: Long, @RequestBody flight: Flight):Flight{
+    fun update(id: Long, flight: Flight): Flight {
         chekExist(id)
         if (flight.id != id) {
             throw AnotherException("Hotel with id $id does not update")
