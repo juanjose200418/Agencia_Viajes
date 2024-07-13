@@ -36,8 +36,9 @@ class UserController {
     fun deleteById(@PathVariable id: Long) {
         userService.deleteById(id)
     }
+
     @PutMapping("/users/{id}")
-    fun update(@PathVariable id : Long, @RequestBody user: User): User {
+    fun update(@PathVariable id: Long, @RequestBody user: User): User {
         return userService.update(id, user)
     }
 }

@@ -17,19 +17,22 @@ class FlightController {
     }
 
     @PostMapping("/flights")
-    fun create (@RequestBody flight: Flight): Flight {
+    fun create(@RequestBody flight: Flight): Flight {
         return flightService.create(flight)
     }
+
     @GetMapping("/flights/{id}")
-    fun getById(@PathVariable id: Long): Flight{
+    fun getById(@PathVariable id: Long): Flight {
         return flightService.getById(id)
     }
+
     @DeleteMapping("/flights/{id}")
-    fun deleteById(@PathVariable id : Long){
+    fun deleteById(@PathVariable id: Long) {
         return flightService.deleteById(id)
     }
+
     @PutMapping("flights/{id}")
-    fun update(@PathVariable id: Long, @RequestBody flight: Flight):Flight{
+    fun update(@PathVariable id: Long, @RequestBody flight: Flight): Flight {
         return flightService.update(id, flight)
     }
 }

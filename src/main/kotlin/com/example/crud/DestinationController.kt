@@ -28,15 +28,17 @@ class DestinationController {
     }
 
     @GetMapping("/destinations/{id}")
-    fun getById(@PathVariable id : Long):Destination{
+    fun getById(@PathVariable id: Long): Destination {
         return destinationService.getById(id)
     }
+
     @DeleteMapping("/destinations/{id}")
-    fun deleteById(@PathVariable id : Long){
+    fun deleteById(@PathVariable id: Long) {
         return destinationService.deleteById(id)
     }
+
     @PutMapping("destinations/{id}")
-    fun update (@PathVariable id : Long,@RequestBody destination: Destination):Destination{
+    fun update(@PathVariable id: Long, @RequestBody destination: Destination): Destination {
         return destinationService.update(id, destination)
     }
 }

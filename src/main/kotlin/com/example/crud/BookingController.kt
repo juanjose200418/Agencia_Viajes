@@ -30,8 +30,9 @@ class BookingController {
     fun deleteById(@PathVariable id: Long) {
         bookingService.deleteById(id)
     }
+
     @PutMapping("bookings/{id}")
-    fun update(@PathVariable id: Long, @RequestBody booking: Booking): Booking{
+    fun update(@PathVariable id: Long, @RequestBody booking: Booking): Booking {
         return bookingService.update(id, booking)
     }
 }

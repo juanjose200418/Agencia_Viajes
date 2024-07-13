@@ -32,12 +32,14 @@ class HotelController {
     fun getById(@PathVariable id: Long): Hotel {
         return hotelService.getById(id)
     }
+
     @DeleteMapping("/hotels/{id}")
-    fun deleteById(@PathVariable id: Long){
+    fun deleteById(@PathVariable id: Long) {
         hotelService.deleteById(id)
     }
+
     @PutMapping("/hotels/{id}")
-    fun update(@PathVariable id: Long, @RequestBody hotel: Hotel):Hotel {
+    fun update(@PathVariable id: Long, @RequestBody hotel: Hotel): Hotel {
         return hotelService.update(id, hotel)
     }
 }
