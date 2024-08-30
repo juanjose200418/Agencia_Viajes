@@ -53,7 +53,6 @@ class BookingService {
 
     fun deleteById(id: Long) {
         checkExist(id)
-        //Creacin del soft delete
         val booking = bookingRepository.getReferenceById(id)
         booking.deleted = true
         bookingRepository.save(booking)

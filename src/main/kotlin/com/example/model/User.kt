@@ -1,6 +1,7 @@
 // User.kt
 package com.example.model
 
+import com.fasterxml.jackson.annotation.JsonProperty
 import jakarta.persistence.*
 
 @Entity
@@ -14,6 +15,8 @@ data class User(
 
     val email: String? = null,
 
+    /*Esto sirve para q la contraseña no se devuelva en el Json*/
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     val password: String? = null,
 
     val phone: String? = null,
@@ -24,4 +27,4 @@ data class User(
 
     var deleted: Boolean? = false,
 
-)
+    )
