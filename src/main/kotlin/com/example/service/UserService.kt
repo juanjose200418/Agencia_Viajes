@@ -71,10 +71,13 @@ class UserService {
 
         val user = User(
             email = request.email,
-            pass = passwordEncoder.encode(request.pass ?: throw IllegalArgumentException("Password is required")),
+            pass = passwordEncoder.encode(request.pass),
             firstname = request.firstname,
             lastname = request.lastname,
-            role = "USER"
+            role = Role.USER,
+            phone = request.phone,
+            address = request.address,
+            deleted = false
         )
 
         return userRepository.save(user)
