@@ -20,18 +20,32 @@ repositories {
 }
 
 dependencies {
+	// JWT
+	implementation("io.jsonwebtoken:jjwt-api:0.11.5")
+	runtimeOnly("io.jsonwebtoken:jjwt-impl:0.11.5")
+	runtimeOnly("io.jsonwebtoken:jjwt-jackson:0.11.5")
+
+	// Spring
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 	implementation("org.springframework.security:spring-security-config:6.2.0")
+	implementation("org.springframework.security:spring-security-web:6.2.0")
 	implementation("org.springframework.boot:spring-boot-starter-web")
-	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
-	implementation("org.jetbrains.kotlin:kotlin-reflect")
-	implementation("org.postgresql:postgresql:42.5.0")
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
-	testImplementation("org.springframework.boot:spring-boot-starter-test")
-	testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
 	testImplementation("org.springframework.security:spring-security-test")
+	testImplementation("org.springframework.boot:spring-boot-starter-test")
+
+	// Kotlin
+	implementation("org.jetbrains.kotlin:kotlin-reflect")
+	testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
+
+	// Utility
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+
+	// Database
+	implementation("org.postgresql:postgresql:42.5.0")
 }
+
 
 
 kotlin {
