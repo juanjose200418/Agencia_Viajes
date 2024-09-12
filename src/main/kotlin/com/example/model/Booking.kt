@@ -10,25 +10,24 @@ import java.time.LocalDate
 data class Booking(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long? = null,
+    var id: Long? = null,
 
     @Column(name = "user_id")
-    val userId: Long? = null,
+    var userId: Long? = null,
 
     @Column(name = "destination_id")
-    val destinationId: Long? = null,
+    var destinationId: Long? = null,
 
     @Column(name = "hotel_id")
-    val hotelId: Long? = null,
+    var hotelId: Long? = null,
 
     @Column(name = "flight_id")
-    val flightId: Long? = null,
+    var flightId: Long? = null,
 
     var deleted: Boolean? = false,
-    val bookingDate: LocalDate? = null,
-    val totalCost: Double? = null,
-) {
-    //defino la relacion Muy importante
+    var bookingDate: LocalDate? = null,
+    var totalCost: Double? = null,
+) {/*Defino la relación*/
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "destination_id", insertable = false, nullable = false, updatable = false)
@@ -48,5 +47,4 @@ data class Booking(
     @ManyToOne
     @JoinColumn(name = "flight_id", insertable = false, nullable = false, updatable = false)
     var flight: Flight? = null
-
 }
