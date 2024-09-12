@@ -22,11 +22,6 @@ class UserController {
         return userService.getAll()
     }
 
-    @PostMapping("/users")
-    fun create(@RequestBody user: User): User {
-        return userService.create(user)
-    }
-
     @GetMapping("/users/{id}")
     fun getById(@PathVariable id: Long): User {
         return userService.getById(id)

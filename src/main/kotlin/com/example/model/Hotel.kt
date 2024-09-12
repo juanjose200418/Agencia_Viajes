@@ -7,55 +7,55 @@ import jakarta.persistence.*
 data class Hotel(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long? = null,
+    var id: Long? = null,
 
-    val name: String? = null,
+    var name: String? = null,
 
-    val email: String? = null,
+    var email: String? = null,
 
-    val address: String? = null,
+    var address: String? = null,
 
-    val phone: String? = null,
+    var phone: String? = null,
 
-    val location: String? = null,
+    var location: String? = null,
 
-    val description: String? = null,
+    var description: String? = null,
 
-    val cancellationPolicy: String? = null,
+    var cancellationPolicy: String? = null,
 
-    val freeWifi: Boolean? = null,
+    var freeWifi: Boolean? = null,
 
-    val breakfastIncluded: Boolean? = null,
+    var breakfastIncluded: Boolean? = null,
 
-    val pool: Boolean? = null,
+    var pool: Boolean? = null,
 
-    val gym: Boolean? = null,
+    var gym: Boolean? = null,
 
-    val spa: Boolean? = null,
+    var spa: Boolean? = null,
 
-    val restaurant: Boolean? = null,
+    var restaurant: Boolean? = null,
 
-    val roomService: Boolean? = null,
+    var roomService: Boolean? = null,
 
-    val laundryService: Boolean? = null,
+    var laundryService: Boolean? = null,
 
-    val airportShuttle: Boolean? = null,
+    var airportShuttle: Boolean? = null,
 
-    val parking: Boolean? = null,
+    var parking: Boolean? = null,
 
-    val specialPackages: String? = null,
+    var specialPackages: String? = null,
 
-    val recreationalActivities: String? = null,
+    var recreationalActivities: String? = null,
 
-    val eventsConferences: String? = null,
+    var eventsConferences: String? = null,
 
-    val guestReviews: String? = null,
+    var guestReviews: String? = null,
 
-    val socialMedia: String? = null,
+    var socialMedia: String? = null,
 
-    val languages: String? = null,
+    var languages: String? = null,
 
-    val accessibility: String? = null,
+    var accessibility: String? = null,
 
     var deleted: Boolean? = null,
 

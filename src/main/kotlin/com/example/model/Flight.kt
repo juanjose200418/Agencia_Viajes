@@ -10,19 +10,19 @@ data class Flight(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
-    val id: Long? = null,
+    var id: Long? = null,
 
-    val flightNumber: String? = null,
+    var flightNumber: String? = null,
 
-    val departure: String? = null,
+    var departure: String? = null,
 
-    val arrival: String? = null,
+    var arrival: String? = null,
 
-    val duration: Double? = null,
+    var duration: Double? = null,
 
-    val price: Double? = null,
+    var price: Double? = null,
 
-    val airline: String? = null,
+    var airline: String? = null,
 
     var deleted: Boolean? = false,
 )

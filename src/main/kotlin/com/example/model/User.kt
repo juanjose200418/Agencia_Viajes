@@ -3,28 +3,44 @@ package com.example.model
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import jakarta.persistence.*
+import org.springframework.security.core.GrantedAuthority
+import org.springframework.security.core.authority.SimpleGrantedAuthority
+import org.springframework.security.core.userdetails.UserDetails
 
 @Entity
 @Table(name = "_user")
-data class User(
+class User(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long? = null,
+    var id: Long? = null,
 
-    val name: String? = null,
+    var firstname: String? = null,
 
-    val email: String? = null,
+    var lastname: String? = null,
+
+    var email: String? = null,
 
     /*Esto sirve para q la contraseña no se devuelva en el Json*/
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    val password: String? = null,
+    var pass: String? = null,
 
-    val phone: String? = null,
+    var phone: String? = null,
 
-    val address: String? = null,
+    var address: String? = null,
 
-    val role: String? = null,
+    var role: Role? = null,
 
     var deleted: Boolean? = false,
+) : UserDetails {
+    override fun getAuthorities(): MutableCollection<out GrantedAuthority> {
+        return role?.let { mutableListOf(SimpleGrantedAuthority(it.name)) } ?: mutableListOf()
+    }
 
-    )
+    override fun getPassword(): String {
+        return pass?: throw IllegalArgumentException("Password is null")
+    }
+
+    override fun getUsername(): String {
+        return email?: throw IllegalArgumentException("email is null")
+    }
+}
