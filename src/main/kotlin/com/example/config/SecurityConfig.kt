@@ -10,7 +10,6 @@ import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration
 import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.security.core.userdetails.UsernameNotFoundException
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.crypto.password.PasswordEncoder
 import java.util.function.Supplier
 
@@ -19,7 +18,7 @@ class SecurityConfig {
     @Autowired
     lateinit var userRepository: UserRepository
     @Autowired
-    lateinit var passwordEncoder:PasswordEncoder
+    lateinit var passwordEncoder: PasswordEncoder
 
     // Defino el bean para el AuthenticationManager, que se encarga de gestionar la autenticación.
     @Bean
@@ -41,7 +40,7 @@ class SecurityConfig {
     @Bean
     fun userDetailService(): UserDetailsService {
         return UserDetailsService { username: String? ->
-            userRepository!!.findByEmail(username!!)
+            userRepository.findByEmail(username!!)
                 .orElseThrow(Supplier { UsernameNotFoundException("User not found") }) // Lanza una excepción si no encuentro el usuario.
         }
     }

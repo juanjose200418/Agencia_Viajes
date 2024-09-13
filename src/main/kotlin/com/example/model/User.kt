@@ -28,6 +28,7 @@ class User(
 
     var address: String? = null,
 
+    @Enumerated(EnumType.STRING)
     var role: Role? = null,
 
     var deleted: Boolean? = false,

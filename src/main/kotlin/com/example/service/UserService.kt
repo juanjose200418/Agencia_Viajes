@@ -71,7 +71,7 @@ class UserService {
             pass = passwordEncoder.encode(request.pass),
             firstname = request.firstname,
             lastname = request.lastname,
-            role = Role.USER,
+            role = request.role,
             phone = request.phone,
             address = request.address,
             deleted = false
