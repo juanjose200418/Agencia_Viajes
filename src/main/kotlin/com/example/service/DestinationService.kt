@@ -6,7 +6,6 @@ import com.example.model.Destination
 import com.example.repository.DestinationRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
-import javax.xml.validation.ValidatorHandler
 
 @Service
 class DestinationService {
@@ -52,4 +51,3 @@ class DestinationService {
         return destinationRepository.save(destination)
     }
 }
-

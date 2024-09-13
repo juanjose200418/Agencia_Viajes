@@ -2,7 +2,6 @@ package com.example.jwt.service
 
 import com.example.model.Credential
 import com.example.model.JwtToken
-import com.example.repository.UserRepository
 import com.example.security.JwtService
 import com.example.service.UserService
 import org.springframework.beans.factory.annotation.Autowired

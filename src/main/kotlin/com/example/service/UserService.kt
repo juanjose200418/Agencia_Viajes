@@ -2,15 +2,12 @@ package com.example.service
 
 import com.example.exception.AnotherException
 import com.example.exception.ResourceNotFoundException
-import com.example.jwt.service.AuthService
 import com.example.model.*
 import com.example.repository.UserRepository
 import com.example.security.JwtService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.BadCredentialsException
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
-import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 

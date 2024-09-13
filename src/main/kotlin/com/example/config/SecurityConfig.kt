@@ -15,9 +15,11 @@ import org.springframework.security.crypto.password.PasswordEncoder
 import java.util.function.Supplier
 
 @Configuration
-class ApplicationConfig {
+class SecurityConfig {
     @Autowired
     lateinit var userRepository: UserRepository
+    @Autowired
+    lateinit var passwordEncoder:PasswordEncoder
 
     // Defino el bean para el AuthenticationManager, que se encarga de gestionar la autenticación.
     @Bean
@@ -31,14 +33,8 @@ class ApplicationConfig {
     fun authenticationProvider(): AuthenticationProvider {
         val authenticationProvider = DaoAuthenticationProvider()
         authenticationProvider.setUserDetailsService(userDetailService()) // Establezco el servicio de detalles de usuario.
-        authenticationProvider.setPasswordEncoder(passwordEncoder()) // Establezco el codificador de contraseñas.
+        authenticationProvider.setPasswordEncoder(passwordEncoder) // Establezco el codificador de contraseñas.
         return authenticationProvider
-    }
-
-    // Defino el bean del codificador de contraseñas usando BCrypt para encriptar las contraseñas.
-    @Bean
-    fun passwordEncoder(): PasswordEncoder {
-        return BCryptPasswordEncoder()
     }
 
     // Defino el UserDetailsService que carga los detalles del usuario desde el UserRepository por el nombre de usuario.

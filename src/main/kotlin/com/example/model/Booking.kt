@@ -3,7 +3,6 @@ package com.example.model
 
 import com.fasterxml.jackson.annotation.JsonIgnore
 import jakarta.persistence.*
-import jdk.jfr.Category
 import java.time.LocalDate
 
 @Entity
