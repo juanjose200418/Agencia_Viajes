@@ -1,13 +1,12 @@
 package com.example.service
 
-import com.example.exception.AnotherException
 import com.example.exception.ResourceNotFoundException
-import com.example.model.*
+import com.example.model.User
 import com.example.repository.UserRepository
 import com.example.security.JwtService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.authentication.AuthenticationManager
-import org.springframework.security.authentication.BadCredentialsException
+import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 
@@ -54,11 +53,37 @@ class UserService {
     }
 
     fun update(id: Long, user: User): User {
-        checkExist(id)
-        if (user.id != id) {
-            throw AnotherException("User with id $id does not update")
+
+        val existingUser = getById(id)
+
+        if (user.email.isNullOrEmpty()) {
+            throw IllegalArgumentException("Email cannot be null or empty")
         }
-        return userRepository.save(user)
+
+        if (user.firstname.isNullOrEmpty()) {
+            throw IllegalArgumentException("First name cannot be null or empty")
+        }
+
+        existingUser.firstname = user.firstname ?: existingUser.firstname
+        existingUser.lastname = user.lastname ?: existingUser.lastname
+        existingUser.email = user.email ?: existingUser.email
+        existingUser.phone = user.phone ?: existingUser.phone
+        existingUser.address = user.address ?: existingUser.address
+
+        if (user.pass != null) {
+            existingUser.pass = passwordEncoder.encode(user.pass)
+        }
+
+        // Verifico si el usuario es administrador antes de permitir modificar rol o estado eliminado
+        val authentication = SecurityContextHolder.getContext().authentication
+        val isAdmin = authentication.authorities.any { it.authority == "ADMIN" }
+
+        if (isAdmin) {
+            existingUser.role = user.role ?: existingUser.role
+            existingUser.deleted = user.deleted ?: existingUser.deleted
+        }
+
+        return userRepository.save(existingUser)
     }
 
     fun create(request: User): User {
@@ -81,7 +106,7 @@ class UserService {
     }
 
     fun findByEmail(email: String?): User {
-        email ?: throw BadCredentialsException("Email cannot be null")
+        email ?: throw IllegalArgumentException("Email cannot be null")
 
         return userRepository.findByEmail(email).orElseThrow {
             IllegalArgumentException("User with email $email not found")
