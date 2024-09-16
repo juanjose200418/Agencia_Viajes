@@ -14,20 +14,26 @@ class User(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = null,
 
+    @Column(nullable = false)
     var firstname: String? = null,
 
     var lastname: String? = null,
 
+    @Column(nullable = false, unique = true)
     var email: String? = null,
 
+    @Column(nullable = false)
     /*Esto sirve para q la contraseña no se devuelva en el Json*/
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     var pass: String? = null,
 
+    @Column(nullable = false)
     var phone: String? = null,
 
+    @Column(nullable = false)
     var address: String? = null,
 
+    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     var role: Role? = null,
 

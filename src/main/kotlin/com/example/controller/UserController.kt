@@ -12,30 +12,30 @@ class UserController {
     @Autowired
     lateinit var userService: UserService
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     @PostMapping("/users")
     fun create(@RequestBody user: User):User{
         return userService.create(user)
     }
 
-    @PreAuthorize ("hasRole('ADMIN')")
+    @PreAuthorize ("hasAnyAuthority('ADMIN')")
     @GetMapping("/users")
     fun getAll(): List<User>{
         return userService.getAll()
     }
-    @PreAuthorize("hasRole('ADMIN') or #id == authentication.principal.id")
+    @PreAuthorize("hasAnyAuthority('ADMIN') or #id == authentication.principal.id")
     @GetMapping("/users/{id}")
     fun getById(@PathVariable id: Long): User {
         return userService.getById(id)
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     @DeleteMapping("/users/{id}")
     fun deleteById(@PathVariable id: Long) {
         userService.deleteById(id)
     }
 
-    @PreAuthorize("hasRole('ADMIN') or #id == authentication.principal.id")
+    @PreAuthorize("hasAnyAuthority('ADMIN') or #id == authentication.principal.id")
     @PutMapping("/users/{id}")
     fun update(@PathVariable id: Long, @RequestBody user: User): User {
         return userService.update(id, user)
