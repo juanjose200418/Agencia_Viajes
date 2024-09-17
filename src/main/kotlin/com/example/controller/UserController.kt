@@ -23,6 +23,7 @@ class UserController {
     fun getAll(): List<User>{
         return userService.getAll()
     }
+
     @PreAuthorize("hasAnyAuthority('ADMIN') or #id == authentication.principal.id")
     @GetMapping("/users/{id}")
     fun getById(@PathVariable id: Long): User {
@@ -40,5 +41,4 @@ class UserController {
     fun update(@PathVariable id: Long, @RequestBody user: User): User {
         return userService.update(id, user)
     }
-
 }
