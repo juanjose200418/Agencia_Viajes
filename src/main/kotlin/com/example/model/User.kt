@@ -38,7 +38,7 @@ class User(
     var role: Role? = null,
 
     var deleted: Boolean? = false,
-) : UserDetails {
+) : UserDetails, Auditing() {
     override fun getAuthorities(): MutableCollection<out GrantedAuthority> {
         return role?.let { mutableListOf(SimpleGrantedAuthority(it.name)) } ?: mutableListOf()
     }
