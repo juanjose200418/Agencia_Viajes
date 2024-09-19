@@ -6,18 +6,18 @@ import org.springframework.data.annotation.CreatedBy
 import org.springframework.data.annotation.CreatedDate
 import org.springframework.data.jpa.domain.support.AuditingEntityListener
 import java.io.Serializable
-import java.security.Timestamp
+import java.time.LocalDateTime
 
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener::class)
 abstract class Auditing(
 
     @CreatedDate
-    @Column(updatable = false, nullable = false)
-    var createdAt: Timestamp? = null,
+    @Column(name = "created_at", updatable = false, nullable = false)
+    var createdAt: LocalDateTime? = null,
 
     @CreatedBy
-    @Column(name = "created_by", updatable = false, nullable = false)
+    @Column(name = "created_by", updatable = false)
     var createdBy: Long? = null,
 ): Serializable {
 
@@ -26,3 +26,4 @@ abstract class Auditing(
     @JoinColumn(name = "created_by", insertable = false, updatable = false)
     var createdByUser: User? = null
 }
+

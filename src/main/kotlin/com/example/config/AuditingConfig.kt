@@ -6,7 +6,6 @@ import org.springframework.data.domain.AuditorAware
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing
 import java.util.*
 
-
 @Configuration
 @EnableJpaAuditing(auditorAwareRef = "auditingConfig")
 class AuditingConfig(
@@ -17,10 +16,9 @@ class AuditingConfig(
         val isAuthenticated = _sessionManager.isAuthenticated()
         if (isAuthenticated) {
             val identity = _sessionManager.getUserIdentity()
-            return Optional.of(identity.id)
+            return Optional.of(identity.id!!)
         } else {
             return Optional.empty()
         }
     }
-
 }
