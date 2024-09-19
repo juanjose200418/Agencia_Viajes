@@ -61,7 +61,7 @@ data class Hotel(
 
     @Column(name = "destination_id")
     var destinationId: Long? = null
-) {
+): Auditing() {
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "destination_id", insertable = false, nullable = false, updatable = false)

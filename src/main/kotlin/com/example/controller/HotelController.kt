@@ -41,4 +41,8 @@ class HotelController {
     fun update(@PathVariable id: Long, @RequestBody hotel: Hotel): Hotel {
         return hotelService.update(id, hotel)
     }
+    @GetMapping("/destination/{destinationId}/hotels")
+    fun getByDestinationId(@PathVariable destinationId: Long): List<Hotel> {
+        return hotelService.getAllByDestinationId(destinationId)
+    }
 }

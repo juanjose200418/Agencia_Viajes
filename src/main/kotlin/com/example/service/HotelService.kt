@@ -50,4 +50,8 @@ class HotelService {
         }
         return hotelRepository.save(hotel)
     }
+    fun getAllByDestinationId(destinationId: Long): List<Hotel> {
+        return hotelRepository.findByDestinationId(destinationId)
+    }
 }
+
