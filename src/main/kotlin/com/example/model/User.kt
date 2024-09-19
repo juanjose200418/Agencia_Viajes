@@ -9,7 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails
 
 @Entity
 @Table(name = "_user")
-class User(
+data class User(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = null,
