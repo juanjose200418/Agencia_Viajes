@@ -24,9 +24,9 @@ data class Booking(
     var flightId: Long? = null,
 
     var deleted: Boolean? = false,
-    var bookingDate: LocalDate? = null,
+
     var totalCost: Double? = null,
-) {/*Defino la relación*/
+): Auditing() {/*Defino la relación*/
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "destination_id", insertable = false, nullable = false, updatable = false)

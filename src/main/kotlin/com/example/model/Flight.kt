@@ -25,4 +25,4 @@ data class Flight(
     var airline: String? = null,
 
     var deleted: Boolean? = false,
-)
+): Auditing()

@@ -26,4 +26,4 @@ data class Destination(
     @JsonIgnore
     @OneToMany(mappedBy = "destination")
     val hotels: MutableList<Hotel> = mutableListOf()
-)
+): Auditing()
