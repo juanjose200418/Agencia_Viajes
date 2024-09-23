@@ -3,6 +3,7 @@ package com.example.controller
 import com.example.jwt.service.AuthService
 import com.example.model.Credential
 import com.example.model.JwtToken
+import com.example.model.Role
 import com.example.model.User
 import com.example.service.UserService
 import org.springframework.beans.factory.annotation.Autowired
@@ -26,6 +27,7 @@ class AuthController {
 
     @PostMapping("/register")
     fun create(@RequestBody request: User): User {
+        request.role = Role.USER
         return userService.create(request)
     }
 }

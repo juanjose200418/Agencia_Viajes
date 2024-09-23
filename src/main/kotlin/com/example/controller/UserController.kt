@@ -12,31 +12,31 @@ class UserController {
     @Autowired
     lateinit var userService: UserService
 
-    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('SUPER_ADMIN')")
     @PostMapping("/users")
     fun create(@RequestBody user: User):User{
         return userService.create(user)
     }
 
-    @PreAuthorize ("hasAnyAuthority('ADMIN')")
+    @PreAuthorize ("hasAnyAuthority('ADMIN','SUPER_ADMIN')")
     @GetMapping("/users")
     fun getAll(): List<User>{
         return userService.getAll()
     }
 
-    @PreAuthorize("hasAnyAuthority('ADMIN') or #id == authentication.principal.id")
+    @PreAuthorize("hasAnyAuthority('ADMIN','SUPER_ADMIN') or #id == authentication.principal.id")
     @GetMapping("/users/{id}")
     fun getById(@PathVariable id: Long): User {
         return userService.getById(id)
     }
 
-    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ADMIN','SUPER_ADMIN')")
     @DeleteMapping("/users/{id}")
     fun deleteById(@PathVariable id: Long) {
         userService.deleteById(id)
     }
 
-    @PreAuthorize("hasAnyAuthority('ADMIN') or #id == authentication.principal.id")
+    @PreAuthorize("hasAnyAuthority('SUPER_ADMIN') or #id == authentication.principal.id")
     @PutMapping("/users/{id}")
     fun update(@PathVariable id: Long, @RequestBody user: User): User {
         return userService.update(id, user)
