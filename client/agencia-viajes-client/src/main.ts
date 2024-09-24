@@ -11,9 +11,9 @@ import { registerPlugins } from '@/plugins'
 import App from './App.vue'
 
 // Composables
-import { createApp } from 'vue'
+import { createApp } from 'vue';
 
-const app = createApp(App)
+const app = createApp(App);
 
 registerPlugins(app)
 

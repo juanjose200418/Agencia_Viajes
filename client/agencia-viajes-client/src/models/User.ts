@@ -18,7 +18,7 @@ export class User {
   email: string = "";
 
   @JsonProperty("pass", String, true)
-  password?: string | null; 
+  pass?: string | null; 
 
   @JsonProperty("phone", String)
   phone?: string; 
