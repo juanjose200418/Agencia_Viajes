@@ -1,4 +1,4 @@
-import axios, { AxiosError } from 'axios';
+/*import axios, { AxiosError } from 'axios';
 import { User } from '../models/User'; // Asegúrate de ajustar la ruta según la estructura de tu proyecto
 
 // Define la interfaz para la respuesta de error del backend
@@ -7,7 +7,7 @@ interface ErrorResponse {
 }
 
 // Base URL del backend
-const API_URL = 'http://localhost:8080/users'; 
+const API_URL = 'http://localhost:8080/users';
 
 class UserService {
   
@@ -67,3 +67,4 @@ class UserService {
 }
 
 export default new UserService();
+*/

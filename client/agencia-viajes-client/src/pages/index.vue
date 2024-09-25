@@ -1,51 +1,47 @@
+
 <template>
   <div class="register-container">
     <h1>User Registration</h1>
 
     <form @submit.prevent="registerUser">
-      <!-- Campo para el nombre -->
+     
       <div>
         <label for="firstname">First Name:</label>
         <input v-model="user.firstname" id="firstname" type="text" required />
       </div>
 
-      <!-- Campo para el apellido -->
+   
       <div>
         <label for="lastname">Last Name:</label>
         <input v-model="user.lastname" id="lastname" type="text" required />
       </div>
 
-      <!-- Campo para el correo electrónico -->
+     
       <div>
         <label for="email">Email:</label>
         <input v-model="user.email" id="email" type="email" required />
       </div>
 
-      <!-- Campo para la contraseña -->
       <div>
         <label for="password">Password:</label>
         <input v-model="user.pass" id="password" type="password" required />
       </div>
 
-      <!-- Campo para confirmar la contraseña -->
       <div>
         <label for="confirmPassword">Confirm Password:</label>
         <input v-model="confirmPassword" id="confirmPassword" type="password" required />
       </div>
 
-      <!-- Campo para el teléfono -->
       <div>
         <label for="phone">Phone:</label>
         <input v-model="user.phone" id="phone" type="tel" />
       </div>
 
-      <!-- Campo para la dirección -->
       <div>
         <label for="address">Address:</label>
         <input v-model="user.address" id="address" type="text" />
       </div>
 
-      <!-- Campo para el rol -->
       <div>
         <label for="role">Role:</label>
         <select v-model="user.role" id="role" required>
@@ -55,11 +51,9 @@
         </select>
       </div>
 
-      <!-- Botón para enviar el formulario -->
       <button type="submit">Register</button>
     </form>
 
-    <!-- Mostrar mensaje de éxito o error -->
     <p v-if="message" :class="{ success: isSuccess, error: !isSuccess }">{{ message }}</p>
   </div>
 </template>

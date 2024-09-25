@@ -1,42 +1,56 @@
-// Plugins
-import Components from 'unplugin-vue-components/vite'
-import Vue from '@vitejs/plugin-vue'
-import Vuetify, { transformAssetUrls } from 'vite-plugin-vuetify'
-import ViteFonts from 'unplugin-fonts/vite'
-import VueRouter from 'unplugin-vue-router/vite'
+// Import necessary plugins
+import Components from 'unplugin-vue-components/vite';
+import Vue from '@vitejs/plugin-vue';
+import Vuetify, { transformAssetUrls } from 'vite-plugin-vuetify';
+import ViteFonts from 'unplugin-fonts/vite';
+import VueRouter from 'unplugin-vue-router/vite';
 
-// Utilities
-import { defineConfig } from 'vite'
-import { fileURLToPath, URL } from 'node:url'
+// Utilities for Vite configuration
+import { defineConfig } from 'vite';
+import { fileURLToPath, URL } from 'node:url';
 
-// https://vitejs.dev/config/
+// Vite configuration
 export default defineConfig({
   plugins: [
+    // Plugin for Vue Router
     VueRouter(),
+
+    // Vue plugin with asset URL transformation
     Vue({
       template: { transformAssetUrls },
     }),
-    // https://github.com/vuetifyjs/vuetify-loader/tree/master/packages/vite-plugin#readme
+
+    // Vuetify plugin with auto-import for components and custom styles
     Vuetify({
       autoImport: true,
       styles: {
-        configFile: 'src/styles/settings.scss',
+        configFile: 'src/styles/settings.scss', // Path to your SASS configuration
       },
     }),
+
+    // Plugin for auto-importing components
     Components(),
+
+    // Plugin for Google Fonts
     ViteFonts({
       google: {
-        families: [ {
-          name: 'Roboto',
-          styles: 'wght@100;300;400;500;700;900',
-        }],
+        families: [
+          {
+            name: 'Roboto',
+            styles: 'wght@100;300;400;500;700;900', // Weight variations for Roboto
+          },
+        ],
       },
     }),
   ],
+  
+  // Define environment variables
   define: { 'process.env': {} },
+
+  // Module resolution options
   resolve: {
     alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url)),
+      '@': fileURLToPath(new URL('./src', import.meta.url)), // Alias for the src directory
     },
     extensions: [
       '.js',
@@ -48,7 +62,9 @@ export default defineConfig({
       '.vue',
     ],
   },
+
+  // Development server options
   server: {
-    port: 3000,
+    port: 3000, // Port for the dev server
   },
-})
+});
