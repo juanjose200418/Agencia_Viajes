@@ -7,6 +7,10 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    CounterComposition: typeof import('./src/components/CounterComposition.vue')['default']
+    CounterOption: typeof import('./src/components/CounterOption.vue')['default']
+    ExampleFor: typeof import('./src/components/ExampleFor.vue')['default']
+    ExampleSelective: typeof import('./src/components/ExampleSelective.vue')['default']
     HelloWorld: typeof import('./src/components/HelloWorld.vue')['default']
     PostButton: typeof import('./src/components/PostButton.vue')['default']
     PostCard: typeof import('./src/components/PostCard.vue')['default']
