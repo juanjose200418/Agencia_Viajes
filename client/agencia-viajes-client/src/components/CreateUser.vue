@@ -67,6 +67,26 @@
         >
           Las contraseñas no coinciden
         </v-alert>
+  
+        <v-alert
+          v-if="errorMessage"
+          type="error"
+          class="mt-3"
+          prominent
+          border="right"
+        >
+          {{ errorMessage }}
+        </v-alert>
+  
+        <v-alert
+          v-if="successMessage"
+          type="success"
+          class="mt-3"
+          prominent
+          border="right"
+        >
+          {{ successMessage }}
+        </v-alert>
       </v-form>
     </v-sheet>
   </template>
@@ -74,18 +94,31 @@
   <script lang="ts" setup>
   import { ref, computed } from 'vue';
   import { User } from '../models/User';
-  import { Role } from '../models/Role';
-  import  {axios} from 'axios';
-
+  import UserService from '../services/UserService'; // Correcta importación del servicio
+  
+  // Definición de variables reactivas
   const user = ref<User>(new User());
-  
   const confirmPassword = ref('');
+  const errorMessage = ref<string | null>(null); // Mensaje de error
+  const successMessage = ref<string | null>(null); // Mensaje de éxito
   
+  // Computed para validar las contraseñas
   const passwordMismatch = computed(() => user.value.pass !== confirmPassword.value);
   
-    const submitForm = () => {
+  // Función para manejar el envío del formulario
+  const submitForm = async () => {
     if (!passwordMismatch.value) {
-      console.log('Datos del usuario:', user.value);
+      try {
+        // Llama al servicio para crear el usuario
+        const response = await UserService.create(user.value);
+        successMessage.value = 'Usuario creado con éxito';
+        errorMessage.value = null; // Limpia el mensaje de error si el registro es exitoso
+        console.log('Usuario creado con éxito:', response);
+      } catch (error) {
+        // Manejo de errores
+        errorMessage.value = `Error al registrar usuario: ${error.message}`;
+        successMessage.value = null; // Limpia el mensaje de éxito si ocurre un error
+      }
     } else {
       console.log('Las contraseñas no coinciden');
     }
@@ -142,3 +175,4 @@
     font-size: 0.9em;
   }
   </style>
+  
