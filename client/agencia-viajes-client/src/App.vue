@@ -13,6 +13,8 @@
       <CounterComposition />
       <ExampleSelective />
       <ExampleFor />
+      <ClassBind />
+      <CreateUser />
     </div>
     
     <!-- Colocamos PostContainer y PostCard abajo a la derecha -->
@@ -26,10 +28,12 @@
 <script lang="ts" setup>
 import PostContainer from './components/PostContainer.vue'
 import PostCard from './components/PostCard.vue'
-import CounterOption from './components/CounterOption.vue'
+import CounterOption from './components/CounterOption.vue' 
 import CounterComposition from './components/CounterComposition.vue'
 import ExampleSelective from './components/ExampleSelective.vue'
 import ExampleFor from './components/ExampleFor.vue'
+import ClassBind from './components/ClassBind.vue'
+import CreateUser from './components/CreateUser.vue' 
 </script>
 
 <style scoped>

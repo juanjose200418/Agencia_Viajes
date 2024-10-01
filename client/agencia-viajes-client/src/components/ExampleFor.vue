@@ -7,8 +7,8 @@
 <script lang="ts" setup >
     import { Ref, ref } from 'vue';
     interface ICountry{
-        code:string
-        name:string
+        code:string,
+        name:string,
     }
     let countries:Ref<Array<ICountry>> = ref([
         {
