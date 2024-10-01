@@ -14,7 +14,7 @@
       <ExampleSelective />
       <ExampleFor />
       <ClassBind />
-      <CreateUser />
+      <Auth />
     </div>
     
     <!-- Colocamos PostContainer y PostCard abajo a la derecha -->
@@ -33,7 +33,7 @@ import CounterComposition from './components/CounterComposition.vue'
 import ExampleSelective from './components/ExampleSelective.vue'
 import ExampleFor from './components/ExampleFor.vue'
 import ClassBind from './components/ClassBind.vue'
-import CreateUser from './components/CreateUser.vue' 
+import Auth from './components/Auth.vue'
 </script>
 
 <style scoped>

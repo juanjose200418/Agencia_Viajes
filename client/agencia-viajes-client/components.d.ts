@@ -7,6 +7,7 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    Auth: typeof import('./src/components/Auth.vue')['default']
     ClassBind: typeof import('./src/components/ClassBind.vue')['default']
     CounterComposition: typeof import('./src/components/CounterComposition.vue')['default']
     CounterOption: typeof import('./src/components/CounterOption.vue')['default']

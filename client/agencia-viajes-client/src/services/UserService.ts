@@ -6,21 +6,21 @@ interface ErrorResponse {
   message: string; 
 }
 
-const API_URL = 'http://localhost:8080/auth/register';
-
+const API_URL = 'http://localhost:8080';
 
 class UserService {
   
   // Crear un nuevo usuario
-  static async create(user: User): Promise<User> {
-    try {
-      const response = await axios.post<User>(API_URL, user);
-      return response.data; // Devuelve el usuario creado
-    } catch (error) {
-      const axiosError = error as AxiosError<ErrorResponse>; // Usa el tipo de error definido
-      throw new Error(`Error al crear usuario: ${axiosError.response?.data?.message || axiosError.message}`);
-    }
+  static async create(user: User, useRegister: boolean = true): Promise<User> {
+  try {
+    const endpoint = useRegister ? '/auth/register' : '/users';  
+    const response = await axios.post<User>(`${API_URL}${endpoint}`, user);
+    return response.data; // Devuelve el usuario creado
+  } catch (error) {
+    const axiosError = error as AxiosError<ErrorResponse>; // Usa el tipo de error definido
+    throw new Error(`Error al crear usuario: ${axiosError.response?.data?.message || axiosError.message}`);
   }
+}
 
   // Obtener todos los usuarios
   static async getAll(): Promise<User[]> {
