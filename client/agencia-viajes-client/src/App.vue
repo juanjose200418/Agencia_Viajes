@@ -1,90 +1,198 @@
 <template>
-  <div class="page-container">
-    <div class="header">
-      <h1>EncuentraTuChollo.com</h1>
-      <div class="auth-links">
-        <h5>inicio de sesion</h5>
-        <h5>Registro</h5>
+  <v-container fluid>
+    <!-- Encabezado -->
+    <v-header class="header">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+      <div class="contact-info">
+        <v-btn variant="plain" class="contact-btn" @click="call">
+          <i class="fas fa-phone"></i> + xx xxx xxx xxxx
+        </v-btn>
+        <v-btn variant="plain" class="contact-btn" @click="email">
+          <i class="fas fa-envelope"></i> ejemplo@company.com
+        </v-btn>
       </div>
-    </div>
-  
-    <div class="content">
-      <CounterOption />
-      <CounterComposition />
-      <ExampleSelective />
-      <ExampleFor />
-      <ClassBind />
-      <Auth />
-    </div>
-    
-    <!-- Colocamos PostContainer y PostCard abajo a la derecha -->
-    <div class="post-section">
-      <PostContainer class="post-container" />
-      <PostCard class="post-card" />
-    </div>
-  </div>
+      <div class="social-icons">
+        <a href="#"><i class="fab fa-facebook-f"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-pinterest"></i></a>
+      </div>
+    </v-header>
+
+    <!-- Barra de navegación -->
+    <v-nav>
+      <ul class="nav-list">
+        <h1 class="header-title">EncuentraTuChollo.com</h1>
+        <li>
+          <v-btn @click="home">Home</v-btn> 
+        </li>
+        <li>
+          <v-menu open-on-hover>
+            <template v-slot:activator="{ props }">
+              <v-btn v-bind="props">Destinations</v-btn>
+            </template>
+            <v-list>
+              <v-list-item @click="goToDestinations">Destinations</v-list-item>
+              <v-list-item @click="goToDestinations">Destinations Detail</v-list-item>
+            </v-list>
+          </v-menu>
+        </li>
+        <li>
+          <v-menu open-on-hover>
+            <template v-slot:activator="{ props }">
+              <v-btn v-bind="props">Hotels</v-btn>
+            </template>
+            <v-list>
+              <v-list-item @click="goToHotels">Hotels</v-list-item>
+              <v-list-item @click="goToHotels">Hotels List</v-list-item>
+              <v-list-item @click="goToHotels">Hotels Details</v-list-item>
+            </v-list>
+          </v-menu>
+        </li>
+        <li>
+          <v-btn @click="goToContacts">Contactos</v-btn>
+        </li>
+        <li>
+          <v-menu open-on-hover>
+            <template v-slot:activator="{ props }">
+              <v-btn v-bind="props">Cuenta</v-btn>
+            </template>
+            <v-list>
+              <v-list-item @click="login">Login</v-list-item>
+              <v-list-item @click="register">Register</v-list-item>
+            </v-list>
+          </v-menu>
+        </li>
+      </ul>
+    </v-nav>
+
+    <v-row justify="center">
+      <v-col cols="12" md="8" lg="6">
+        <!-- Contenido -->
+        <div class="content">
+          <Register />
+        </div>
+
+        <!-- Sección para PostContainer y PostCard -->
+        <div class="post-section">
+          <PostContainer class="post-container" />
+          <PostCard class="post-card" />
+        </div>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script lang="ts" setup>
-import PostContainer from './components/PostContainer.vue'
-import PostCard from './components/PostCard.vue'
-import CounterOption from './components/CounterOption.vue' 
-import CounterComposition from './components/CounterComposition.vue'
-import ExampleSelective from './components/ExampleSelective.vue'
-import ExampleFor from './components/ExampleFor.vue'
-import ClassBind from './components/ClassBind.vue'
-import Auth from './components/Auth.vue'
+import Register from './components/Register.vue';
+import PostContainer from './components/PostContainer.vue';
+import PostCard from './components/PostCard.vue';
+import router from './router';
+
+
+// Funciones de inicio de sesión, registro, email y llamada
+const login = () => {
+  console.log('Redirigir a la página de inicio de sesión');
+}
+
+const register = () => {
+  console.log('Redirigiendo a la página de registro'); // Mensaje de consola
+  router.push('/auth/register'); // Redirige a la página de registro
+};
+
+const email = () => {
+  window.location.href = 'mailto:ejemplo@company.com';
+}
+
+const call = () => {
+  window.location.href = 'tel:+xx-xxx-xxx-xxxx';
+}
+
+// Métodos para navegación
+const home = () => {
+  router.push('/'); 
+};
+
+const goToDestinations = () => {
+  console.log('Ir a Destinos');
+}
+
+const goToHotels = () => {
+  console.log('Ir a Hoteles');
+}
+
+const goToContacts = () => {
+  console.log('Ir a Contactos');
+}
 </script>
 
 <style scoped>
-/* Contenedor de la página completa */
-.page-container {
-  position: relative; /* Para que el PostContainer y PostCard se posicionen relativos a este contenedor */
-  min-height: 100vh;  /* Asegura que la página ocupe toda la altura de la ventana */
-  padding-bottom: 1800px; /* Espacio de seguridad para el contenido */
-}
-
-/* Cabecera */
 .header {
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
   align-items: center;
-  gap: 10px;
-  margin-top: 20px;
+  background-color: #073ce900;
+  font-size: 12px; 
+  padding: 10px; /* Añadido para un mejor espaciado */
 }
 
-/* Enlaces de autenticación */
-.auth-links {
+.contact-info {
   display: flex;
   gap: 20px;
 }
 
-/* Estilo del título */
-h1 {
-  color: red;
-  margin: 0;
-  text-align: center;
+.contact-btn {
+  font-size: 10px; 
 }
 
-/* Sección que contiene el PostContainer y PostCard */
-.post-section {
-  position: absolute;
-  bottom: 0;
-  right: 0;
+.social-icons {
   display: flex;
-  flex-direction: column;
-  align-items: flex; /* Alinea los elementos a la derecha */
-  margin: 20px;
+  gap: 10px;
 }
 
-/* Posicionamiento de PostContainer y PostCard */
-.post-container,
-.post-card {
-  margin-bottom: 10px; /* Añade un pequeño espacio entre PostContainer y PostCard */
+.social-icons a {
+  color: white;
+  font-size: 18px;
 }
 
-.auth-links h5 {
+.header-title {
+  color: black; 
+  margin: 0; 
+}
+
+.nav-list {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  align-items: center; 
+  padding: 20px; /* Reducido para un mejor espaciado */
   margin: 0;
-  cursor: pointer;
+  background-color: rgb(211, 211, 211);
+}
+
+.nav-list li {
+  margin: 0 15px;
+}
+
+.nav-list a,
+.nav-list v-btn {
+  color: black; 
+  text-decoration: none;
+  font-size: 16px; 
+  text-transform: none; 
+}
+
+.nav-list a:hover,
+.nav-list v-btn:hover {
+  text-decoration: underline;
+}
+
+.post-section {
+  margin-top: 20px;
+}
+
+.content {
+  padding: 20px;
+  background-color: #000;
 }
 </style>
