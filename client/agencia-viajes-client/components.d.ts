@@ -12,6 +12,7 @@ declare module 'vue' {
     CounterOption: typeof import('./src/components/CounterOption.vue')['default']
     ExampleFor: typeof import('./src/components/ExampleFor.vue')['default']
     ExampleSelective: typeof import('./src/components/ExampleSelective.vue')['default']
+    Login: typeof import('./src/components/Login.vue')['default']
     PostButton: typeof import('./src/components/PostButton.vue')['default']
     PostCard: typeof import('./src/components/PostCard.vue')['default']
     PostContainer: typeof import('./src/components/PostContainer.vue')['default']

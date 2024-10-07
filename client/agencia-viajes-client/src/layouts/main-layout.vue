@@ -78,12 +78,13 @@
 <script lang="ts" setup>
 import PostContainer from './components/PostContainer.vue';
 import PostCard from './components/PostCard.vue';
-import Page from './page/register'
+import Page from './pages/register';
 import router from '../router';
 
 
 const login = () => {
   console.log('Redirigir a la página de inicio de sesión');
+  router.push('/login')
 }
 
 const register = () => {
