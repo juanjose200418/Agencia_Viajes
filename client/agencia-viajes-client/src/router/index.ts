@@ -1,16 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router/auto';
 import { routes } from 'vue-router/auto-routes';
-import RegisterPage from '@/pages/RegisterPage.vue';
-
-
-
-
-// Agrega la ruta de registro manualmente
-routes.push({
-  path: '/auth/register',
-  name: 'Register',
-  component: RegisterPage,
-});
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),

@@ -7,7 +7,6 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
-    Auth: typeof import('./src/components/Auth.vue')['default']
     ClassBind: typeof import('./src/components/ClassBind.vue')['default']
     CounterComposition: typeof import('./src/components/CounterComposition.vue')['default']
     CounterOption: typeof import('./src/components/CounterOption.vue')['default']
@@ -17,7 +16,6 @@ declare module 'vue' {
     PostCard: typeof import('./src/components/PostCard.vue')['default']
     PostContainer: typeof import('./src/components/PostContainer.vue')['default']
     Register: typeof import('./src/components/Register.vue')['default']
-    RegisterComponent: typeof import('./src/components/RegisterComponent.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
   }

@@ -1,198 +1,22 @@
 <template>
-  <v-container fluid>
-    <!-- Encabezado -->
-    <v-header class="header">
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
-      <div class="contact-info">
-        <v-btn variant="plain" class="contact-btn" @click="call">
-          <i class="fas fa-phone"></i> + xx xxx xxx xxxx
-        </v-btn>
-        <v-btn variant="plain" class="contact-btn" @click="email">
-          <i class="fas fa-envelope"></i> ejemplo@company.com
-        </v-btn>
-      </div>
-      <div class="social-icons">
-        <a href="#"><i class="fab fa-facebook-f"></i></a>
-        <a href="#"><i class="fab fa-twitter"></i></a>
-        <a href="#"><i class="fab fa-instagram"></i></a>
-        <a href="#"><i class="fab fa-pinterest"></i></a>
-      </div>
-    </v-header>
-
-    <!-- Barra de navegación -->
-    <v-nav>
-      <ul class="nav-list">
-        <h1 class="header-title">EncuentraTuChollo.com</h1>
-        <li>
-          <v-btn @click="home">Home</v-btn> 
-        </li>
-        <li>
-          <v-menu open-on-hover>
-            <template v-slot:activator="{ props }">
-              <v-btn v-bind="props">Destinations</v-btn>
-            </template>
-            <v-list>
-              <v-list-item @click="goToDestinations">Destinations</v-list-item>
-              <v-list-item @click="goToDestinations">Destinations Detail</v-list-item>
-            </v-list>
-          </v-menu>
-        </li>
-        <li>
-          <v-menu open-on-hover>
-            <template v-slot:activator="{ props }">
-              <v-btn v-bind="props">Hotels</v-btn>
-            </template>
-            <v-list>
-              <v-list-item @click="goToHotels">Hotels</v-list-item>
-              <v-list-item @click="goToHotels">Hotels List</v-list-item>
-              <v-list-item @click="goToHotels">Hotels Details</v-list-item>
-            </v-list>
-          </v-menu>
-        </li>
-        <li>
-          <v-btn @click="goToContacts">Contactos</v-btn>
-        </li>
-        <li>
-          <v-menu open-on-hover>
-            <template v-slot:activator="{ props }">
-              <v-btn v-bind="props">Cuenta</v-btn>
-            </template>
-            <v-list>
-              <v-list-item @click="login">Login</v-list-item>
-              <v-list-item @click="register">Register</v-list-item>
-            </v-list>
-          </v-menu>
-        </li>
-      </ul>
-    </v-nav>
-
-    <v-row justify="center">
-      <v-col cols="12" md="8" lg="6">
-        <!-- Contenido -->
-        <div class="content">
-          <Register />
-        </div>
-
-        <!-- Sección para PostContainer y PostCard -->
-        <div class="post-section">
-          <PostContainer class="post-container" />
-          <PostCard class="post-card" />
-        </div>
-      </v-col>
-    </v-row>
-  </v-container>
+  <v-app>
+    <main-layout>
+      <RouterView></RouterView>
+    </main-layout>
+  </v-app>
 </template>
 
 <script lang="ts" setup>
-import Register from './components/Register.vue';
-import PostContainer from './components/PostContainer.vue';
-import PostCard from './components/PostCard.vue';
-import router from './router';
-
-
-// Funciones de inicio de sesión, registro, email y llamada
-const login = () => {
-  console.log('Redirigir a la página de inicio de sesión');
-}
-
-const register = () => {
-  console.log('Redirigiendo a la página de registro'); // Mensaje de consola
-  router.push('/auth/register'); // Redirige a la página de registro
-};
-
-const email = () => {
-  window.location.href = 'mailto:ejemplo@company.com';
-}
-
-const call = () => {
-  window.location.href = 'tel:+xx-xxx-xxx-xxxx';
-}
-
-// Métodos para navegación
-const home = () => {
-  router.push('/'); 
-};
-
-const goToDestinations = () => {
-  console.log('Ir a Destinos');
-}
-
-const goToHotels = () => {
-  console.log('Ir a Hoteles');
-}
-
-const goToContacts = () => {
-  console.log('Ir a Contactos');
-}
+import MainLayout from "@/layouts/main-layout.vue"
 </script>
 
-<style scoped>
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: #073ce900;
-  font-size: 12px; 
-  padding: 10px; /* Añadido para un mejor espaciado */
-}
-
-.contact-info {
-  display: flex;
-  gap: 20px;
-}
-
-.contact-btn {
-  font-size: 10px; 
-}
-
-.social-icons {
-  display: flex;
-  gap: 10px;
-}
-
-.social-icons a {
-  color: white;
-  font-size: 18px;
-}
-
-.header-title {
-  color: black; 
-  margin: 0; 
-}
-
-.nav-list {
-  list-style: none;
-  display: flex;
-  justify-content: center;
-  align-items: center; 
-  padding: 20px; /* Reducido para un mejor espaciado */
-  margin: 0;
-  background-color: rgb(211, 211, 211);
-}
-
-.nav-list li {
-  margin: 0 15px;
-}
-
-.nav-list a,
-.nav-list v-btn {
-  color: black; 
-  text-decoration: none;
-  font-size: 16px; 
-  text-transform: none; 
-}
-
-.nav-list a:hover,
-.nav-list v-btn:hover {
-  text-decoration: underline;
-}
-
-.post-section {
-  margin-top: 20px;
-}
-
-.content {
-  padding: 20px;
-  background-color: #000;
+<style>
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  margin-top: 60px;
 }
 </style>

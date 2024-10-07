@@ -93,7 +93,6 @@ import { ref, computed } from 'vue';
 import { User } from '../models/User';
 import UserService from '../services/UserService';
 
-// Definición de variables reactivas
 const user = ref<User>(new User());
 const confirmPassword = ref('');
 const errorMessage = ref<string | null>(null);
@@ -119,7 +118,6 @@ const confirmPasswordRule = (v: string) => {
   return v === confirmPassword.value || 'Las contraseñas no coinciden';
 };
 
-// Computed para validar las contraseñas
 const passwordMismatch = computed(() => user.value.pass !== confirmPassword.value);
 const formIsValid = computed(() => {
   return user.value.firstname && user.value.lastname && 
@@ -127,7 +125,6 @@ const formIsValid = computed(() => {
          !passwordMismatch.value;
 });
 
-// Función para manejar el envío del formulario
 const submitForm = async () => {
   if (!passwordMismatch.value) {
     try {
@@ -135,16 +132,11 @@ const submitForm = async () => {
       successMessage.value = 'Usuario creado con éxito';
       errorMessage.value = null;
     } catch (error : unknown) {
-      if (error instanceof Error) {
-        errorMessage.value = error.message || 'Error al registrar usuario';
-      } else {
-        errorMessage.value = 'Error desconocido';
-      }
+      errorMessage.value = (error as any).message || 'Error al registrar usuario';
       successMessage.value = null;
     }
   }
 };
-
 </script>
 
 <style scoped>
