@@ -13,7 +13,7 @@ class UserService {
   // Crear un nuevo usuario
   static async create(user: User, useRegister: boolean = true): Promise<User> {
   try {
-    const endpoint = useRegister ? '/auth/register' : '/users';  
+    const endpoint = useRegister ? '/auth/register' : '/users' ;  
     const response = await axios.post<User>(`${API_URL}${endpoint}`, user);
     return response.data; // Devuelve el usuario creado
   } catch (error) {
@@ -65,6 +65,17 @@ class UserService {
       throw new Error(`Error al eliminar usuario con ID ${id}: ${axiosError.response?.data?.message || axiosError.message}`);
     }
   }
+  
+  static async login(user: { email: string; pass: string }): Promise<{ token: string; user: User }> {
+    try {
+      const response = await axios.post<{ token: string; user: User }>(`${API_URL}/auth/login`, user);
+      return response.data; // Devuelve el token y el usuario
+    } catch (error) {
+      const axiosError = error as AxiosError<ErrorResponse>;
+      throw new Error(`Error al iniciar sesión: ${axiosError.response?.data?.message || axiosError.message}`);
+    }
+  }
 }
+
 
 export default UserService;
