@@ -66,10 +66,10 @@ class UserService {
     }
   }
   
-  static async login(user: { email: string; pass: string }): Promise<{ token: string; user: User }> {
+  static async login(Credential: { email: string; password: string }): Promise<{ token: string; user: User }> {
     try {
-      const response = await axios.post<{ token: string; user: User }>(`${API_URL}/auth/login`, user);
-      return response.data; // Devuelve el token y el usuario
+      const response = await axios.post<{ token: string; user: User }>(`${API_URL}/auth/login`, Credential);
+      return response.data; 
     } catch (error) {
       const axiosError = error as AxiosError<ErrorResponse>;
       throw new Error(`Error al iniciar sesión: ${axiosError.response?.data?.message || axiosError.message}`);

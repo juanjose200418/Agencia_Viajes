@@ -2,7 +2,7 @@
   <v-sheet class="mx-auto" width="400">
     <v-form @submit.prevent="submitForm" fast-fail>
       <v-text-field
-        v-model="user.email"
+        v-model="credential.email"
         :rules="emailRules"
         label="Correo Electrónico"
         placeholder="Introduce el correo"
@@ -11,7 +11,7 @@
       ></v-text-field>
 
       <v-text-field
-        v-model="user.pass"
+        v-model="credential.password"
         :rules="passwordRules"
         label="Contraseña"
         placeholder="Introduce la contraseña"
@@ -19,7 +19,7 @@
         required
       ></v-text-field>
 
-      <v-btn class="mt-2" type="submit" :disabled="passwordMismatch || !formIsValid" block>
+      <v-btn class="mt-2" type="submit" :disabled="!formIsValid" block>
         Iniciar Sesión
       </v-btn>
 
@@ -36,14 +36,14 @@
 
 <script lang="ts" setup>
 import { ref, computed } from 'vue';
-import { User } from '../models/User'; // Asegúrate de que el modelo User esté configurado correctamente
-import UserService from '../services/UserService'; // Importa tu servicio de usuario
+import { Credential } from '../models/Credential';
+import UserService from '../services/UserService';
 
-const user = ref<User>(new User());
+const credential = ref<Credential>(new Credential('', ''));
 const errorMessage = ref<string | null>(null);
 const successMessage = ref<string | null>(null);
 
-// Reglas de validación
+// Reglas de validación para el formulario
 const emailRules = [
   (v: string) => !!v || 'Correo electrónico es obligatorio',
   (v: string) => /.+@.+\..+/.test(v) || 'El correo electrónico debe ser válido',
@@ -54,27 +54,27 @@ const passwordRules = [
   (v: string) => (v && v.length >= 6) || 'La contraseña debe tener al menos 6 caracteres',
 ];
 
-const passwordMismatch = computed(() => user.value.pass !== user.value.pass); // Sin confirmación de contraseña
+// Computed property para verificar si el formulario es válido
 const formIsValid = computed(() => {
-  return user.value.email && user.value.pass && !passwordMismatch.value;
+  return !!credential.value.email && !!credential.value.password;
 });
 
 const submitForm = async () => {
   try {
-    // Cambia este método según cómo estés manejando la autenticación
-    const response = await UserService.login(user.value); // Llama a tu método de login
-    const { token, user: userData } = response.data; // Ajusta según la respuesta de tu backend
+    // Llamada al servicio de autenticación
+    const response = await UserService.login(credential.value);
+    const { token, user } = response;
 
-    // Guardar el token en el almacenamiento local
+    // Almacenar el token y los datos del usuario en localStorage
     localStorage.setItem('authToken', token);
-    localStorage.setItem('user', JSON.stringify(userData)); // Opcional, almacenar el usuario
+    localStorage.setItem('user', JSON.stringify(user));
 
+    // Mostrar mensaje de éxito
     successMessage.value = 'Inicio de sesión exitoso!';
     errorMessage.value = null;
     
-    // Redirigir al usuario o realizar otras acciones necesarias
-    // Por ejemplo, podrías usar `this.$router.push('/home');` si usas Vue Router
   } catch (error: unknown) {
+    // Mostrar error
     errorMessage.value = (error as any).message || 'Error al iniciar sesión';
     successMessage.value = null;
   }
@@ -82,53 +82,5 @@ const submitForm = async () => {
 </script>
 
 <style scoped>
-.user-form {
-  max-width: 400px;
-  margin: 0 auto;
-  padding: 20px;
-  background-color: #000;
-  border-radius: 10px;
-  color: white;
-}
-
-.form-group {
-  margin-bottom: 15px;
-}
-
-label {
-  display: block;
-  font-weight: bold;
-  margin-bottom: 5px;
-}
-
-input,
-select {
-  width: 100%;
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
-
-button {
-  background-color: #4CAF50;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-button:disabled {
-  background-color: #ccc;
-  cursor: not-allowed;
-}
-
-button:hover:not(:disabled) {
-  background-color: #45a049;
-}
-
-.error-text {
-  color: red;
-  font-size: 0.9em;
-}
+/* Estilos opcionales */
 </style>
