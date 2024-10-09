@@ -76,9 +76,9 @@
 </template>
 
 <script lang="ts" setup>
-import PostContainer from './components/PostContainer.vue';
+/*import PostContainer from './components/PostContainer.vue';
 import PostCard from './components/PostCard.vue';
-import Page from './pages/register';
+import Page from './pages/register';*/
 import router from '../router';
 
 
@@ -110,6 +110,7 @@ const goToDestinations = () => {
 
 const goToHotels = () => {
   console.log('Ir a Hoteles');
+  router.push('/hotels')
 }
 
 const goToContacts = () => {

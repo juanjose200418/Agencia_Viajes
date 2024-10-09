@@ -6,6 +6,26 @@ const router = createRouter({
   routes,
 });
 
+const protectedRoutes = ['/hotels']; 
+
+protectedRoutes.forEach(route => {
+  const routeConfig = router.getRoutes().find(r => r.path === route);
+  if (routeConfig) {
+    routeConfig.meta = { requiresAuth: true };
+  }
+});
+
+router.beforeEach((to, from, next) => {
+  const isAuthenticated = !!localStorage.getItem('authToken');
+
+  // Verifico si la ruta requiere autenticación
+  if (to.meta.requiresAuth && !isAuthenticated) {
+    next('/login'); // Redirigo a login si no está autenticado
+  } else {
+    next(); 
+  }
+});
+
 // Manejo de errores
 router.onError((err, to) => {
   if (err?.message?.includes?.('Failed to fetch dynamically imported module')) {
@@ -21,6 +41,7 @@ router.onError((err, to) => {
   }
 });
 
+// Limpiar localStorage al estar listo
 router.isReady().then(() => {
   localStorage.removeItem('vuetify:dynamic-reload');
 });

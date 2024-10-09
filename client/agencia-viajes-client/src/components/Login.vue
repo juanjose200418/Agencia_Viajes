@@ -36,8 +36,11 @@
 
 <script lang="ts" setup>
 import { ref, computed } from 'vue';
+import { useRouter } from 'vue-router';  
 import { Credential } from '../models/Credential';
 import UserService from '../services/UserService';
+
+const router = useRouter();
 
 const credential = ref<Credential>(new Credential('', ''));
 const errorMessage = ref<string | null>(null);
@@ -54,11 +57,12 @@ const passwordRules = [
   (v: string) => (v && v.length >= 6) || 'La contraseña debe tener al menos 6 caracteres',
 ];
 
-// Computed property para verificar si el formulario es válido
+// Computed para validar el formulario
 const formIsValid = computed(() => {
   return !!credential.value.email && !!credential.value.password;
 });
 
+// Método para enviar el formulario
 const submitForm = async () => {
   try {
     // Llamada al servicio de autenticación
@@ -72,6 +76,8 @@ const submitForm = async () => {
     // Mostrar mensaje de éxito
     successMessage.value = 'Inicio de sesión exitoso!';
     errorMessage.value = null;
+
+    router.push('/');
     
   } catch (error: unknown) {
     // Mostrar error
@@ -82,5 +88,4 @@ const submitForm = async () => {
 </script>
 
 <style scoped>
-/* Estilos opcionales */
 </style>
