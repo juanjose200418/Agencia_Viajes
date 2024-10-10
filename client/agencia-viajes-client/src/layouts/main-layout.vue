@@ -42,7 +42,7 @@
             </template>
             <v-list>
               <v-list-item @click="goToHotels">Hotels</v-list-item>
-              <v-list-item @click="goToHotels">Hotels List</v-list-item>
+              <v-list-item @click="goToHotelsList">Hotels List</v-list-item>
               <v-list-item @click="goToHotels">Hotels Details</v-list-item>
             </v-list>
           </v-menu>
@@ -64,27 +64,59 @@
       </ul>
     </v-nav>
 
-    <v-row justify="center">
-      <v-col cols="12" md="8" lg="6">
+    <main>
+      <slot></slot>
+    </main>
 
-        <main>
-          <slot></slot>
-        </main>
-      </v-col>
-    </v-row>
+    <v-footer class="footer" padless>
+      <v-container fluid>
+        <v-row>
+          <v-col cols="12" md="4">
+            <h4>Welcome to our Trip and Tour Agency</h4>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            <p><strong>Tel:</strong> + 92 666 999 0000</p>
+            <p><strong>Email:</strong> needhelp@company.com</p>
+            <p><strong>Address:</strong> 666 Road, Brooklyn Street, New York</p>
+          </v-col>
+          <v-col cols="12" md="4">
+            <h4>Company</h4>
+            <ul class="footer-links">
+              <li><v-btn @click="goToAboutUs">About Us</v-btn></li>
+              <li><v-btn @click="goToBlog">Community Blog</v-btn></li>
+              <li><v-btn @click="goToRewards">Rewards</v-btn></li>
+              <li><v-btn @click="goToWorkWithUs">Work with Us</v-btn></li>
+              <li><v-btn @click="goToMeetTheTeam">Meet the Team</v-btn></li>
+            </ul>
+          </v-col>
+          <v-col cols="12" md="4">
+            <h4>Explore</h4>
+            <ul class="footer-links">
+              <li><v-btn @click="goToAccount">Account</v-btn></li>
+              <li><v-btn @click="goToLegal">Legal</v-btn></li>
+              <li><v-btn @click="goToContact">Contact</v-btn></li>
+              <li><v-btn @click="goToAffiliate">Affiliate Program</v-btn></li>
+              <li><v-btn @click="goToPrivacy">Privacy Policy</v-btn></li>
+            </ul>
+          </v-col>
+        </v-row>
+        <v-divider></v-divider>
+        <v-row>
+          
+          <v-col cols="12" md="6" class="text-center">
+            <p class="footer-copy">© All Copyright 2024, EncuentraTuChollo.com</p>
+          </v-col>
+        </v-row>
+      </v-container>
+    </v-footer>
   </v-container>
 </template>
 
 <script lang="ts" setup>
-/*import PostContainer from './components/PostContainer.vue';
-import PostCard from './components/PostCard.vue';
-import Page from './pages/register';*/
 import router from '../router';
-
 
 const login = () => {
   console.log('Redirigir a la página de inicio de sesión');
-  router.push('/login')
+  router.push('/login');
 }
 
 const register = () => {
@@ -110,11 +142,56 @@ const goToDestinations = () => {
 
 const goToHotels = () => {
   console.log('Ir a Hoteles');
-  router.push('/hotels')
+  router.push('/hotels');
+}
+
+const goToHotelsList = () => {
+  console.log('Ir a Listado de hoteles');
+  router.push('/listHotel');
 }
 
 const goToContacts = () => {
   console.log('Ir a Contactos');
+}
+
+const goToAboutUs = () => {
+  // Redirigir a la página de About Us
+}
+
+const goToBlog = () => {
+  // Redirigir a la página de Community Blog
+}
+
+const goToRewards = () => {
+  // Redirigir a la página de Rewards
+}
+
+const goToWorkWithUs = () => {
+  // Redirigir a la página de Work with Us
+}
+
+const goToMeetTheTeam = () => {
+  // Redirigir a la página de Meet the Team
+}
+
+const goToAccount = () => {
+  // Redirigir a la página de Account
+}
+
+const goToLegal = () => {
+  // Redirigir a la página de Legal
+}
+
+const goToContact = () => {
+  // Redirigir a la página de Contact
+}
+
+const goToAffiliate = () => {
+  // Redirigir a la página de Affiliate Program
+}
+
+const goToPrivacy = () => {
+  // Redirigir a la página de Privacy Policy
 }
 </script>
 
@@ -179,12 +256,30 @@ const goToContacts = () => {
   text-decoration: underline;
 }
 
-.post-section {
-  margin-top: 20px;
+.footer {
+  background-color: #073ce9;
+  color: white;
+  padding: 40px 0;
 }
 
-.content {
-  padding: 20px;
-  background-color: #000;
+.footer-title {
+  margin-bottom: 15px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.footer-links {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-links li {
+  margin: 5px 0;
+}
+
+.footer-copy {
+  margin-top: 20px;
+  text-align: center;
+  font-size: 12px;
 }
 </style>
