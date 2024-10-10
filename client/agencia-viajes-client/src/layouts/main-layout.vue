@@ -257,8 +257,8 @@ const goToPrivacy = () => {
 }
 
 .footer {
-  background-color: #073ce9;
-  color: white;
+  background-color: rgb(211, 211, 211);
+  color: black;
   padding: 40px 0;
 }
 
