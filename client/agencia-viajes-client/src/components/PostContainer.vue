@@ -1,5 +1,5 @@
 <template>
-    <h3>Mejores Destinos: </h3>
+    <h3> </h3>
     <div class="post-container">
         <PostCard />
         <PostCard />
