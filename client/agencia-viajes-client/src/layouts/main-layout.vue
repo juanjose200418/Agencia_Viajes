@@ -21,8 +21,9 @@
     <v-nav>
       <ul class="nav-list">
         <h1 class="header-title">EncuentraTuChollo.com</h1>
+        <v-tab>One</v-tab>
         <li>
-          <v-btn @click="home">Home</v-btn> 
+          <v-tab @click="home">Home</v-tab>
         </li>
         <li>
           <v-menu open-on-hover>
@@ -155,23 +156,22 @@ const goToContacts = () => {
 }
 
 const goToAboutUs = () => {
-  // Redirigir a la página de About Us
+
 }
 
 const goToBlog = () => {
-  // Redirigir a la página de Community Blog
+
 }
 
 const goToRewards = () => {
-  // Redirigir a la página de Rewards
+
 }
 
 const goToWorkWithUs = () => {
-  // Redirigir a la página de Work with Us
+
 }
 
 const goToMeetTheTeam = () => {
-  // Redirigir a la página de Meet the Team
 }
 
 const goToAccount = () => {

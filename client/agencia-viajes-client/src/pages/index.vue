@@ -21,6 +21,7 @@
       </v-sheet>
     </v-carousel-item>
   </v-carousel>
+  
 </template>
 
 <script lang="ts" setup>
