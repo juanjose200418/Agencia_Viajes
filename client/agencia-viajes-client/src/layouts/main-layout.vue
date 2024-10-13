@@ -21,9 +21,13 @@
     <v-nav>
       <ul class="nav-list">
         <h1 class="header-title">EncuentraTuChollo.com</h1>
-        <v-tab>One</v-tab>
-        <li>
-          <v-tab @click="home">Home</v-tab>
+      
+          <li>
+          <v-menu open-on-hover>
+            <template v-slot:activator="{ props }">
+              <v-btn v-bind="props" @click="home">Home</v-btn>
+            </template>
+          </v-menu>
         </li>
         <li>
           <v-menu open-on-hover>
