@@ -35,8 +35,8 @@
               <v-btn v-bind="props">Destinations</v-btn>
             </template>
             <v-list>
-              <v-list-item @click="goToDestinations">Destinations</v-list-item>
-              <v-list-item @click="goToDestinations">Destinations Detail</v-list-item>
+              <v-list-item @click="destinations">Destinations</v-list-item>
+             <!--<v-list-item @click="goToDestinations">Destinations Detail</v-list-item>--> 
             </v-list>
           </v-menu>
         </li>
@@ -141,8 +141,9 @@ const home = () => {
   router.push('/'); 
 };
 
-const goToDestinations = () => {
+const destinations = () => {
   console.log('Ir a Destinos');
+  router.push('/destinations');
 }
 
 const goToHotels = () => {
