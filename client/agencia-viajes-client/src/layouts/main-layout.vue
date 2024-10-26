@@ -43,7 +43,7 @@
         <li>
           <v-menu open-on-hover>
             <template v-slot:activator="{ props }">
-              <v-btn v-bind="props">Hotels</v-btn>
+              <v-btn v-bind="props" @click="goToHotels" >Hotels</v-btn>
             </template>
             <v-list>
               <v-list-item @click="goToHotels">Hotels</v-list-item>
