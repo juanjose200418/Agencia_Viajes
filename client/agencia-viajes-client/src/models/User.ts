@@ -5,30 +5,29 @@ import { Role } from './Role';
 export class User {
   
   @JsonProperty("id", Number, true)
-  id?: number = undefined;
+  id?: number = undefined;               
   
- 
   @JsonProperty("firstname", String, true)
-  firstname?: string | null;
+  firstname?: string = undefined;         
 
   @JsonProperty("lastname", String, true)
-  lastname?: string | null;
+  lastname?: string = undefined;          
   
   @JsonProperty("email", String)
-  email: string = "";
+  email: string = "";                     
 
   @JsonProperty("pass", String, true)
-  pass?: string | null; 
+  pass?: string = undefined;              
 
   @JsonProperty("phone", String)
-  phone?: string; 
+  phone?: string = undefined;             
 
   @JsonProperty("address", String)
-  address?: string; 
+  address?: string = undefined;           
 
   @JsonProperty("role", String)
-  role?: Role;
+  role?: Role = undefined;                
   
   @JsonProperty("deleted", Boolean, true)
-  deleted?: boolean = false;
+  deleted?: boolean = false;              
 }

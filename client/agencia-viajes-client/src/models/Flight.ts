@@ -3,27 +3,27 @@ import { JsonObject, JsonProperty } from 'json2typescript';
 @JsonObject("Flight")
 export class Flight {
   
-  @JsonProperty("id", Number, true)
-  id?: number = undefined;
+  @JsonProperty("id", Number, true)         
+  id?: number = undefined;                 
   
-  @JsonProperty("flightNumber", String, true)
-  flightNumber?: string | null;
+  @JsonProperty("flightNumber", String, true) 
+  flightNumber?: string = undefined;        
 
-  @JsonProperty("departure", String, true)
-  departure?: string | null;
+  @JsonProperty("departure", String, true)  
+  departure?: string = undefined;           
   
-  @JsonProperty("arrival", String)
-  arrival: string = "";
+  @JsonProperty("arrival", String)          
+  arrival: string = "";                     
 
-  @JsonProperty("duration", Number, true)
-  duration?: number | null; 
+  @JsonProperty("duration", Number, true)   
+  duration?: number = undefined;            
 
-  @JsonProperty("price", Number, true)  
-  price?: number | null;
+  @JsonProperty("price", Number, true)      
+  price?: number = undefined;               
 
-  @JsonProperty("airline", String, true)  
-  airline?: string | null;
+  @JsonProperty("airline", String, true)    
+  airline?: string = undefined;             
   
-  @JsonProperty("deleted", Boolean, true)
-  deleted?: boolean = false;
+  @JsonProperty("deleted", Boolean, true)   
+  deleted?: boolean = false;                
 }

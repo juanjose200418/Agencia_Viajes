@@ -4,23 +4,23 @@ import { JsonObject, JsonProperty } from 'json2typescript';
 export class Booking {
   
   @JsonProperty("id", Number, true)
-  id?: number = undefined;
+  id?: number = undefined;                
 
   @JsonProperty("userId", Number, true)
-  userId?: number | null = null;
+  userId?: number = undefined;            
 
   @JsonProperty("destinationId", Number, true)
-  destinationId?: number = undefined
+  destinationId?: number = undefined;     
 
   @JsonProperty("hotelId", Number, true)
-  hotelId?: number | null = null;
+  hotelId?: number = undefined;           
 
   @JsonProperty("flightId", Number, true)
-  flightId?: number | null = null;
+  flightId?: number = undefined;          
 
   @JsonProperty("deleted", Boolean, true)
-  deleted?: boolean = false;
+  deleted?: boolean = false;              
 
   @JsonProperty("totalCost", Number, true)
-  totalCost?: number | null = null;
+  totalCost?: number = undefined;         
 }

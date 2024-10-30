@@ -7,80 +7,80 @@ export class Hotel {
   id?: number = undefined;
 
   @JsonProperty("name", String, true)
-  name?: string | null = null;
+  name?: string = undefined;
 
   @JsonProperty("email", String, true)
-  email?: string | null = null;
+  email?: string = undefined;
 
   @JsonProperty("address", String, true)
-  address?: string | null = null;
+  address?: string = undefined;
 
   @JsonProperty("phone", String, true)
-  phone?: string | null = null;
+  phone?: string = undefined;
 
   @JsonProperty("location", String, true)
-  location?: string | null = null;
+  location?: string = undefined;
 
   @JsonProperty("description", String, true)
-  description?: string | null = null;
+  description?: string = undefined;
 
   @JsonProperty("cancellationPolicy", String, true)
-  cancellationPolicy?: string | null = null;
+  cancellationPolicy?: string = undefined;
 
   @JsonProperty("freeWifi", Boolean, true)
-  freeWifi?: boolean | null = null;
+  freeWifi?: boolean = undefined;
 
   @JsonProperty("breakfastIncluded", Boolean, true)
-  breakfastIncluded?: boolean | null = null;
+  breakfastIncluded?: boolean = undefined;
 
   @JsonProperty("pool", Boolean, true)
-  pool?: boolean | null = null;
+  pool?: boolean = undefined;
 
   @JsonProperty("gym", Boolean, true)
-  gym?: boolean | null = null;
+  gym?: boolean = undefined;
 
   @JsonProperty("spa", Boolean, true)
-  spa?: boolean | null = null;
+  spa?: boolean = undefined;
 
   @JsonProperty("restaurant", Boolean, true)
-  restaurant?: boolean | null = null;
+  restaurant?: boolean = undefined;
 
   @JsonProperty("roomService", Boolean, true)
-  roomService?: boolean | null = null;
+  roomService?: boolean = undefined;
 
   @JsonProperty("laundryService", Boolean, true)
-  laundryService?: boolean | null = null;
+  laundryService?: boolean = undefined;
 
   @JsonProperty("airportShuttle", Boolean, true)
-  airportShuttle?: boolean | null = null;
+  airportShuttle?: boolean = undefined;
 
   @JsonProperty("parking", Boolean, true)
-  parking?: boolean | null = null;
+  parking?: boolean = undefined;
 
   @JsonProperty("specialPackages", String, true)
-  specialPackages?: string | null = null;
+  specialPackages?: string = undefined;
 
   @JsonProperty("recreationalActivities", String, true)
-  recreationalActivities?: string | null = null;
+  recreationalActivities?: string = undefined;
 
   @JsonProperty("eventsConferences", String, true)
-  eventsConferences?: string | null = null;
+  eventsConferences?: string = undefined;
 
   @JsonProperty("guestReviews", String, true)
-  guestReviews?: string | null = null;
+  guestReviews?: string = undefined;
 
   @JsonProperty("socialMedia", String, true)
-  socialMedia?: string | null = null;
+  socialMedia?: string = undefined;
 
   @JsonProperty("languages", String, true)
-  languages?: string | null = null;
+  languages?: string = undefined;
 
   @JsonProperty("accessibility", String, true)
-  accessibility?: string | null = null;
+  accessibility?: string = undefined;
 
   @JsonProperty("deleted", Boolean, true)
   deleted?: boolean = false;
 
   @JsonProperty("destinationId", Number, true)
-  destinationId?: number | null = null;
+  destinationId?: number = undefined;
 }
