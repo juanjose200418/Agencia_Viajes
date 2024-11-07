@@ -32,10 +32,10 @@
         <li>
           <v-menu open-on-hover>
             <template v-slot:activator="{ props }">
-              <v-btn v-bind="props">Destinations</v-btn>
+              <v-btn v-bind="props" @click="goTodestinations">Destinations</v-btn>
             </template>
             <v-list>
-              <v-list-item @click="destinations">Destinations</v-list-item>
+              <v-list-item @click="goTodestinations">Destinations</v-list-item>
              <!--<v-list-item @click="goToDestinations">Destinations Detail</v-list-item>--> 
             </v-list>
           </v-menu>
@@ -141,7 +141,7 @@ const home = () => {
   router.push('/'); 
 };
 
-const destinations = () => {
+const goTodestinations = () => {
   console.log('Ir a Destinos');
   router.push('/destinations');
 }

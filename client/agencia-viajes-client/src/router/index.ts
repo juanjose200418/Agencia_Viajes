@@ -6,7 +6,7 @@ const router = createRouter({
   routes,
 });
 
-const protectedRoutes = ['/hotels', '/listHotel', '/Destinations']; 
+const protectedRoutes = ['/hotels', '/listHotel', '/destinations']; 
 
 protectedRoutes.forEach(route => {
   const routeConfig = router.getRoutes().find(r => r.path === route);
