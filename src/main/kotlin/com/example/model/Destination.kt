@@ -1,4 +1,3 @@
-// Destination.kt
 package com.example.model
 
 import com.fasterxml.jackson.annotation.JsonIgnore
@@ -22,6 +21,9 @@ data class Destination(
     var averageCost: Double? = null,
 
     var deleted: Boolean? = false,
+
+    @Transient
+    var destinationFile : ImageFile? = null,
 
     @JsonIgnore
     @OneToMany(mappedBy = "destination")
