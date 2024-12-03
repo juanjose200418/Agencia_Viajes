@@ -1,4 +1,3 @@
-// User.kt
 package com.example.model
 
 import com.fasterxml.jackson.annotation.JsonProperty
@@ -38,6 +37,9 @@ data class User(
     var role: Role? = null,
 
     var deleted: Boolean? = false,
+
+    @Transient
+    var userFile : ImageFile? = null,
 ) : UserDetails, Auditing() {
     override fun getAuthorities(): MutableCollection<out GrantedAuthority> {
         return role?.let { mutableListOf(SimpleGrantedAuthority(it.name)) } ?: mutableListOf()
