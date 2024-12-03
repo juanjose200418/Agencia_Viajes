@@ -32,20 +32,20 @@ class FlightService {
     }
 
     fun deleteById(id: Long) {
-        chekExist(id)
+        checkExist(id)
         val flight = flightRepository.getReferenceById(id)
         flight.deleted = true
         flightRepository.save(flight)
     }
 
-    private fun chekExist(id: Long) {
+    private fun checkExist(id: Long) {
         if (!flightRepository.existsById(id)) {
             throw ResourceNotFoundException("Flight ith id $id does not exist")
         }
     }
 
     fun update(id: Long, flight: Flight): Flight {
-        chekExist(id)
+        checkExist(id)
         if (flight.id != id) {
             throw AnotherException("Hotel with id $id does not update")
         }
