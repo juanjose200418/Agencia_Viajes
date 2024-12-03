@@ -1,7 +1,7 @@
 package com.example.service
 
-import com.example.exception.AnotherException
-import com.example.exception.ResourceNotFoundException
+import com.example.shared.exception.AnotherException
+import com.example.shared.exception.ResourceNotFoundException
 import com.example.model.Destination
 import com.example.repository.DestinationRepository
 import org.springframework.beans.factory.annotation.Autowired
