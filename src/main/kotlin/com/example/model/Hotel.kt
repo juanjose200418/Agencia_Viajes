@@ -59,8 +59,11 @@ data class Hotel(
 
     var deleted: Boolean? = null,
 
+    @Transient
+    var hotelFile : ImageFile? = null,
+
     @Column(name = "destination_id")
-    var destinationId: Long? = null
+    var destinationId: Long? = null,
 ): Auditing() {
     @JsonIgnore
     @ManyToOne
