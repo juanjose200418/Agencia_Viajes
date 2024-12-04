@@ -48,6 +48,10 @@ dependencies {
 
 	// JUnit
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+
+	// Validations
+	implementation("org.hibernate.validator:hibernate-validator:8.0.0.Final")
+
 }
 
 kotlin {
