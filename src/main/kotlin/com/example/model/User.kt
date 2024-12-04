@@ -38,8 +38,9 @@ data class User(
 
     var deleted: Boolean? = false,
 
-    @Transient
-    var userFile : ImageFile? = null,
+    @OneToOne(cascade = [CascadeType.ALL])
+    @JoinColumn(name = "file_id", referencedColumnName = "id")
+    var userFile : Image? = null,
 ) : UserDetails, Auditing() {
     override fun getAuthorities(): MutableCollection<out GrantedAuthority> {
         return role?.let { mutableListOf(SimpleGrantedAuthority(it.name)) } ?: mutableListOf()

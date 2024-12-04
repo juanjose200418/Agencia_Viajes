@@ -23,7 +23,7 @@ data class Destination(
     var deleted: Boolean? = false,
 
     @Transient
-    var destinationFile : ImageFile? = null,
+    var destinationFile : Image? = null,
 
     @JsonIgnore
     @OneToMany(mappedBy = "destination")

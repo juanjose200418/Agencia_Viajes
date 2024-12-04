@@ -60,7 +60,7 @@ data class Hotel(
     var deleted: Boolean? = null,
 
     @Transient
-    var hotelFile : ImageFile? = null,
+    var hotelFile : Image? = null,
 
     @Column(name = "destination_id")
     var destinationId: Long? = null,

@@ -28,5 +28,5 @@ data class Flight(
     var deleted: Boolean? = false,
 
     @Transient
-    var flightFile : ImageFile? = null
+    var flightFile : Image? = null
 ): Auditing()
