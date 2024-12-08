@@ -34,7 +34,7 @@ class FileService(
 
         return entity
     }
-
+//Antes de eliminar una entidad de la base de datos, elimina el archivo físico correspondiente.
     override fun beforeDelete(id: Long) {
         _deleteFile(id)
     }
@@ -56,7 +56,7 @@ class FileService(
         return entity
 
     }
-
+//Elimina físicamente un archivo del sistema de almacenamiento.
     private fun _deleteFile(id: Long) {
         val file = findById(id)
         val folder = _getFolderFromType(file.type!!)
@@ -90,11 +90,11 @@ class FileService(
         val resolve = path.resolve(StringUtils.cleanPath(fileName))
         Files.copy(multipartFile.inputStream, resolve, StandardCopyOption.REPLACE_EXISTING)
     }
-
+//El lowercase() se está usando para poner todos las letras de la cadena en minusculas
     private fun _getFolderFromType(type: File.Type): String {
         return "/${type.toString().lowercase()}"
     }
-
+//El replace sirve para que la ruta tenga un formato uniforme estilo Unix independientemente de cualquier sistema operativo
     private fun _getRootPath(): String {
         val path = Paths.get("").toAbsolutePath()
         return path.toString().replace("\\", "/")
