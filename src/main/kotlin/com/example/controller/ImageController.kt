@@ -25,6 +25,7 @@ class ImageController(
         return _imageService.findAll(pageable)
     }
 
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'SUPER_ADMIN')")
     @PostMapping("/images")
     fun create(@Valid @RequestBody image: Image): Image {
         return _imageService.create(image)
@@ -42,6 +43,6 @@ class ImageController(
     @PreAuthorize("hasAnyAuthority('ADMIN', 'SUPER_ADMIN')")
     @DeleteMapping("/images/{id}")
     fun delete(@PathVariable id: Long) {
-        _imageService.deleteById(id)
+        return _imageService.deleteById(id)
     }
 }
