@@ -54,4 +54,3 @@ class HotelService {
         return hotelRepository.findByDestinationId(destinationId)
     }
 }
-
