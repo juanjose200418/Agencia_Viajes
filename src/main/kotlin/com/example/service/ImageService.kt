@@ -30,7 +30,6 @@ class ImageService(
             val file = _fileService.update(entity.fileId!!, File(file = it))
             entity.fileId = file.id
         }
-
         return entity
     }
 

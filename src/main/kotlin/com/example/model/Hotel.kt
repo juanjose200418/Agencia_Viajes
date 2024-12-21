@@ -69,4 +69,8 @@ data class Hotel(
     @ManyToOne
     @JoinColumn(name = "destination_id", insertable = false, nullable = false, updatable = false)
     var destination: Destination? = null
+
+    @OneToOne
+    @JoinColumn(name = "image_id")
+    var hotelImage: Image? = null
 }

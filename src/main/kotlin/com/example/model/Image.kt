@@ -21,17 +21,17 @@ class Image(
     @field:NotNull
     @Transient
     var imageFile: MultipartFile? = null,
-
+/*
     @field:NotNull
     @Column(name = "image_library_id", nullable = false)
-    var imageLibraryId: Long? = null,
+    var imageLibraryId: Long? = null,*/
 
 ) : Identifiable<Long>, Auditing() {
-
+/*
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "image_library_id", insertable = false, nullable = false, updatable = false)
-    var imageLibrary: ImageLibrary? = null
+    var imageLibrary: ImageLibrary? = null*/
 
     @Column(name = "file_id", nullable = false)
     var fileId: Long? = null
@@ -44,4 +44,8 @@ class Image(
     @get:Transient
     val fileUrl: String?
         get() = file?.url
+
+    @JsonIgnore
+    @OneToOne(mappedBy = "hotelImage")
+    var hotel: Hotel? = null
 }
