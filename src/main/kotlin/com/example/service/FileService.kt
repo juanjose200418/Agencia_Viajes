@@ -7,8 +7,10 @@ import org.springframework.stereotype.Service
 import org.springframework.util.StringUtils
 import org.springframework.web.multipart.MultipartFile
 import java.nio.file.Files
+import java.nio.file.Path
 import java.nio.file.Paths
 import java.nio.file.StandardCopyOption
+import java.util.logging.Logger
 
 @Service
 class FileService(
@@ -16,8 +18,9 @@ class FileService(
 ) : BaseService<File, Long>(_fileRepository) {
 
     companion object {
-        const val STORAGE_PATH = "/static/storage"
+        const val STORAGE_PATH = "/resources/static/storage"
         const val URL_STORAGE_PATH = "/storage"
+        private val logger: Logger = Logger.getLogger(FileService::class.java.name)
     }
 
     override fun beforeCreate(entity: File): File {
@@ -35,12 +38,14 @@ class FileService(
         return entity
     }
 
-    //Antes de eliminar una entidad de la base de datos, elimina el archivo físico correspondiente.
     override fun beforeDelete(id: Long) {
         _deleteFile(id)
     }
 
     private fun _populateEntityFieldsFromMultipartFile(entity: File): File {
+        if (entity.file == null) {
+            throw IllegalArgumentException("El archivo es nulo")
+        }
         val originalFileName = entity.file!!.originalFilename!!
         entity.extension = StringUtils.getFilenameExtension(originalFileName)
         entity.baseName = StringUtils.stripFilenameExtension(originalFileName)
@@ -55,22 +60,24 @@ class FileService(
         entity.file = null
 
         return entity
-
     }
 
-    //Elimina físicamente un archivo del sistema de almacenamiento.
     private fun _deleteFile(id: Long) {
         val file = findById(id)
         val folder = _getFolderFromType(file.type!!)
-
         val path = Paths.get(_getRootPath() + STORAGE_PATH + folder)
-        val resolve = path.resolve(StringUtils.cleanPath(file.name!!))
+        val resolve: Path = path.resolve(StringUtils.cleanPath(file.name!!))
 
-        /*if (!Files.exists(path)) {
-        } else if (!Files.exists(resolve)) {
-        }*/
-
-        Files.delete(resolve)
+        try {
+            if (Files.exists(resolve)) {
+                Files.delete(resolve)
+                logger.info("Archivo eliminado correctamente: $resolve")
+            } else {
+                logger.warning("El archivo no existe y no puede ser eliminado: $resolve")
+            }
+        } catch (e: Exception) {
+            logger.severe("Error al intentar eliminar el archivo: ${e.message}")
+        }
     }
 
     private fun _saveMultipartFile(multipartFile: MultipartFile, folder: String, fileName: String) {
@@ -80,27 +87,32 @@ class FileService(
             || StringUtils.cleanPath(multipartFile.originalFilename!!).contains("..")
             || fileName.isBlank()
         ) {
+            logger.warning("El archivo no es válido y no se puede guardar")
             return
         }
 
         val path = Paths.get(_getRootPath() + STORAGE_PATH + folder)
 
-        if (!Files.exists(path)) {
-            Files.createDirectories(path)
-        }
+        try {
+            if (!Files.exists(path)) {
+                Files.createDirectories(path)
+                logger.info("Directorio creado: $path")
+            }
 
-        val resolve = path.resolve(StringUtils.cleanPath(fileName))
-        Files.copy(multipartFile.inputStream, resolve, StandardCopyOption.REPLACE_EXISTING)
+            val resolve = path.resolve(StringUtils.cleanPath(fileName))
+            Files.copy(multipartFile.inputStream, resolve, StandardCopyOption.REPLACE_EXISTING)
+            logger.info("Archivo guardado correctamente en: $resolve")
+        } catch (e: Exception) {
+            logger.severe("Error al guardar el archivo: ${e.message}")
+        }
     }
 
-    //El lowercase() se está usando para poner todos las letras de la cadena en minusculas
     private fun _getFolderFromType(type: File.Type): String {
         return "/${type.toString().lowercase()}"
     }
 
-    //El replace sirve para que la ruta tenga un formato uniforme estilo Unix independientemente de cualquier sistema operativo
     private fun _getRootPath(): String {
         val path = Paths.get("").toAbsolutePath()
-        return path.toString().replace("\\", "/")
+        return path.toString().replace("\\", "/") + "/src/main"
     }
 }
