@@ -27,16 +27,13 @@ class ImageController(
 
     @PreAuthorize("hasAnyAuthority('ADMIN', 'SUPER_ADMIN')")
     @PostMapping("/images")
-    fun create(@Valid @RequestBody image: Image): Image {
+    fun create(@Valid @ModelAttribute image: Image): Image {
         return _imageService.create(image)
     }
 
     @PreAuthorize("hasAnyAuthority('ADMIN', 'SUPER_ADMIN')")
-    @PatchMapping("/images/{id}")
-    fun update(
-        @PathVariable id: Long,
-        @Valid @RequestBody image: Image,
-    ): Image {
+    @PutMapping("/images/{id}")
+    fun update(@PathVariable id: Long, @Valid @ModelAttribute image: Image, ): Image {
         return _imageService.update(id, image)
     }
 
