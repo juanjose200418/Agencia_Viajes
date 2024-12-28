@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: agencia
+  datasource:
+    url: jdbc:postgresql://localhost:5432/agencia_db
+    username: postgres
+    password: hola123
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+  banner:
+    location: classpath:banner.txt
+
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
