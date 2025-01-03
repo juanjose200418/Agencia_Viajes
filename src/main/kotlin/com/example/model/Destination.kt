@@ -22,9 +22,6 @@ data class Destination(
 
     var deleted: Boolean? = false,
 
-    @Transient
-    var destinationFile : Image? = null,
-
     @JsonIgnore
     @OneToMany(mappedBy = "destination")
     val hotels: MutableList<Hotel> = mutableListOf()
