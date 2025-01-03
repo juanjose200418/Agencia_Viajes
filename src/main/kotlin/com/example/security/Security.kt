@@ -24,6 +24,13 @@ class Security(
             .csrf { csrf -> csrf.disable() }
             .authorizeHttpRequests { authRequest ->
                 authRequest
+                    .requestMatchers(
+                        "/v3/api-docs/**",
+                        "/swagger-ui/**",
+                        "/swagger-ui.html",
+                        "/swagger-resources/**",
+                        "/webjars/**"
+                    ).permitAll()
                     .requestMatchers("/auth/**").permitAll()
                     .anyRequest().authenticated()
             }
