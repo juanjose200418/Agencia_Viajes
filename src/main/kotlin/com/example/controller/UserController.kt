@@ -18,7 +18,7 @@ class UserController {
         return userService.create(user)
     }
 
-    @PreAuthorize ("hasAnyAuthority('ADMIN','SUPER_ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ADMIN','SUPER_ADMIN')")
     @GetMapping("/users")
     fun getAll(): List<User>{
         return userService.getAll()

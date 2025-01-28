@@ -53,7 +53,6 @@ class UserService {
     }
 
     fun update(id: Long, user: User): User {
-
         val existingUser = getById(id)
 
         if (user.email.isNullOrEmpty()) {
@@ -87,7 +86,8 @@ class UserService {
     }
 
     fun create(request: User): User {
-        if (userRepository.existsByEmail(request.email ?: throw IllegalArgumentException("Email is required"))) {
+        val email = request.email ?: throw IllegalArgumentException("Email is required")
+        if (userRepository.existsByEmail(email)) {
             throw RuntimeException("User already exists")
         }
 

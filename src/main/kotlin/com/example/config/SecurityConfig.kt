@@ -41,7 +41,7 @@ class SecurityConfig {
     fun userDetailService(): UserDetailsService {
         return UserDetailsService { username: String? ->
             userRepository.findByEmail(username!!)
-                .orElseThrow(Supplier { UsernameNotFoundException("User not found") }) // Lanza una excepción si no encuentro el usuario.
+                .orElseThrow { UsernameNotFoundException("User not found") } // Lanza una excepción si no encuentro el usuario.
         }
     }
 }

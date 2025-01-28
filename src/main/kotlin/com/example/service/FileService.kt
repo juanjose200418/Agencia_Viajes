@@ -44,7 +44,7 @@ class FileService(
 
     private fun _populateEntityFieldsFromMultipartFile(entity: File): File {
         if (entity.file == null) {
-            throw IllegalArgumentException("El archivo es nulo")
+            throw IllegalArgumentException("File is null")
         }
         val originalFileName = entity.file!!.originalFilename!!
         entity.extension = StringUtils.getFilenameExtension(originalFileName)
@@ -71,12 +71,12 @@ class FileService(
         try {
             if (Files.exists(resolve)) {
                 Files.delete(resolve)
-                logger.info("Archivo eliminado correctamente: $resolve")
+                logger.info("File deleted successfully: $resolve")
             } else {
-                logger.warning("El archivo no existe y no puede ser eliminado: $resolve")
+                logger.warning("File does not exist and cannot be deleted: $resolve")
             }
         } catch (e: Exception) {
-            logger.severe("Error al intentar eliminar el archivo: ${e.message}")
+            logger.severe("Error trying to delete the file: ${e.message}")
         }
     }
 
@@ -87,7 +87,7 @@ class FileService(
             || StringUtils.cleanPath(multipartFile.originalFilename!!).contains("..")
             || fileName.isBlank()
         ) {
-            logger.warning("El archivo no es válido y no se puede guardar")
+            logger.warning("The file is not valid and cannot be saved")
             return
         }
 
@@ -96,14 +96,14 @@ class FileService(
         try {
             if (!Files.exists(path)) {
                 Files.createDirectories(path)
-                logger.info("Directorio creado: $path")
+                logger.info("Directory created: $path")
             }
 
             val resolve = path.resolve(StringUtils.cleanPath(fileName))
             Files.copy(multipartFile.inputStream, resolve, StandardCopyOption.REPLACE_EXISTING)
-            logger.info("Archivo guardado correctamente en: $resolve")
+            logger.info("File saved successfully at: $resolve")
         } catch (e: Exception) {
-            logger.severe("Error al guardar el archivo: ${e.message}")
+            logger.severe("Error saving the file: ${e.message}")
         }
     }
 

@@ -31,15 +31,15 @@ class ImageService(
                 val file = _fileService.update(entity.fileId!!, File(file = it))
                 entity.fileId = file.id
             } ?: run {
-                println("imageFile es nulo, no se actualizará el archivo.")
+                println("imageFile is null, the file will not be updated.")
             }
         } else {
-            println("fileId es nulo, creando un nuevo archivo.")
+            println("fileId is null, creating a new file.")
             entity.imageFile?.let {
                 val file = _fileService.create(File(file = it, type = File.Type.IMAGE))
                 entity.fileId = file.id
             } ?: run {
-                throw IllegalArgumentException("No se proporcionó un archivo para actualizar.")
+                throw IllegalArgumentException("No file was provided for the update.")
             }
         }
         return entity
@@ -47,7 +47,7 @@ class ImageService(
 
     override fun beforeDelete(id: Long) {
         val image = findById(id)
-        println("Eliminando imagen con ID: ${image.id}, y archivo con ID: ${image.fileId}")
+        println("Deleting image with ID: ${image.id}, and file with ID: ${image.fileId}")
 
         super.beforeDelete(id)
 
@@ -55,7 +55,7 @@ class ImageService(
             try {
                 _fileService.deleteById(fileId)
             } catch (e: Exception) {
-                println("No se pudo eliminar el archivo con ID: $fileId. Error: ${e.message}")
+                println("Could not delete file with ID: $fileId. Error: ${e.message}")
             }
         }
     }
