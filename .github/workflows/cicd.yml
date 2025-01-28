@@ -37,7 +37,7 @@ jobs:
     services:
       docker:
         image: docker:dind
-        options: --privileged
+        options: --privileged --tls=false --host tcp://0.0.0.0:2375
     env:
       DOCKER_HOST: tcp://localhost:2375
       DOCKER_TLS_VERIFY: ""
