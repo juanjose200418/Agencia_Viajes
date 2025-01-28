@@ -2,9 +2,9 @@ spring:
   application:
     name: agencia
   datasource:
-    url: jdbc:postgresql://localhost:5432/agencia_db
-    username: postgres
-    password: hola123
+    url: ${DATABASE_URL}
+    username: ${DATABASE_USERNAME}
+    password: ${DATABASE_PASSWORD}
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
