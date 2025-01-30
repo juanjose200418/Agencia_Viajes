@@ -5,7 +5,7 @@ on:
     branches: [ main ]
 
 jobs:
-  # Compila el proyecto
+  #compila el proyecto
   build:
     runs-on: ubuntu-latest
     container: gradle:jdk17-alpine
@@ -30,15 +30,14 @@ jobs:
         with:
           name: app-jar
           path: build/libs/*.jar
-
-  # Compila Docker y lo sube al Docker Registry
+  #compila docker y lo sube al docker registry (repositorio de imagen de docker)
   deploy:
     runs-on: ubuntu-latest
     needs: build
     services:
       docker:
         image: docker:dind
-        options: --privileged
+        options: --privileged --tls=false --host tcp://0.0.0.0:2375
     env:
       DOCKER_HOST: tcp://localhost:2375
       DOCKER_TLS_VERIFY: ""
