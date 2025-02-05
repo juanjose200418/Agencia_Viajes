@@ -31,7 +31,7 @@ jobs:
           name: app-jar
           path: build/libs/*.jar
 
-  # Compila Docker y lo sube al GitHub Container Registry (GHCR)
+  # Compila Docker y lo sube al GitHub Container Registry
   deploy:
     runs-on: ubuntu-latest
     needs: build
