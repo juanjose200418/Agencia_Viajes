@@ -48,7 +48,7 @@ import org.springframework.http.HttpHeaders
         ),
         Server(
             description = "PROD SERVER",
-            url = "http://juanjosejaen.com"
+            url = "https://juanjosejaen.com"
         )
     ],
     security = [
