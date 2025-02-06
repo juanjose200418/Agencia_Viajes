@@ -4,6 +4,7 @@ spring:
     username: ${DATABASE_USERNAME}
     password: ${DATABASE_PASSWORD}
     driver-class-name: org.postgresql.Driver
+
   jpa:
     hibernate:
       ddl-auto: update
@@ -12,6 +13,16 @@ spring:
     properties:
       hibernate:
         format_sql: true
+
   sql:
     init:
       mode: always
+
+springdoc:
+  swagger-ui:
+    urls:
+      - name: "DEV SERVER"
+        url: "http://localhost:8080/v3/api-docs"
+      - name: "PROD SERVER"
+        url: "https://juanjosejaen.com/v3/api-docs"
+    tryItOutEnabled: true

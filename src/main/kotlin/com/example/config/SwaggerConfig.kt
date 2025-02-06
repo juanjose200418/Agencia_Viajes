@@ -49,6 +49,10 @@ import org.springframework.http.HttpHeaders
         Server(
             description = "PROD SERVER",
             url = "https://juanjosejaen.com"
+        ),
+        Server(
+            description = "DEV SERVER",
+            url = "http://localhost:8080"
         )
     ],
     security = [
