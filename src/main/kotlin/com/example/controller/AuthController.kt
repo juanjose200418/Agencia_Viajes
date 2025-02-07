@@ -27,7 +27,6 @@ class AuthController {
 
     @PostMapping("/register")
     fun create(@RequestBody request: User): User {
-        request.role = Role.USER
         return userService.create(request)
     }
 }

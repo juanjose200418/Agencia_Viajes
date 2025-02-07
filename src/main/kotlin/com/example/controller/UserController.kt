@@ -12,7 +12,6 @@ class UserController {
     @Autowired
     lateinit var userService: UserService
 
-    @PreAuthorize("hasAnyAuthority('SUPER_ADMIN')")
     @PostMapping("/users")
     fun create(@RequestBody user: User):User{
         return userService.create(user)
