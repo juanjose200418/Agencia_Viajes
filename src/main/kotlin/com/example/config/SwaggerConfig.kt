@@ -28,6 +28,12 @@ import org.springframework.http.HttpHeaders
 
             Seguridad:
             Autenticación mediante JWT y autorización por roles. Los roles administran el acceso a los distintos endpoints.
+            
+            Si queréis iniciar sesión como SUPERADMIN, aquí tenéis las credenciales que estoy usando actualmente:
+            {
+                "email": "superadmin@gmail.com",
+                "password": "superadmin"
+            }
         """,
         termsOfService = "https://juanjosejaen.com/terminos_y_servicios",
         version = "1.0.0",
