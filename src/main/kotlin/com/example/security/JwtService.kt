@@ -4,13 +4,21 @@ import io.jsonwebtoken.Claims
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.SignatureAlgorithm
 import io.jsonwebtoken.security.Keys
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.stereotype.Service
 import java.util.*
 import javax.crypto.SecretKey
 
 @Service
-class JwtService {
+class JwtService(
+    @Value("\${jwt.secret}") private val secret: String
+) {
+
+    init {
+        require(secret.isNotBlank()) { "jwt.secret must not be empty. Set the JWT_SECRET environment variable." }
+    }
+
 
     fun getToken(user: UserDetails): String {
         return getToken(HashMap(), user)
@@ -28,7 +36,7 @@ class JwtService {
 
     private val key: SecretKey
         get() {
-            val keyBytes: ByteArray = Base64.getDecoder().decode(SECRET_KEY)
+            val keyBytes: ByteArray = Base64.getDecoder().decode(secret)
             return Keys.hmacShaKeyFor(keyBytes)
         }
 
@@ -60,9 +68,5 @@ class JwtService {
 
     private fun isTokenExpired(token: String?): Boolean {
         return getExpiration(token).before(Date())
-    }
-
-    companion object {
-        private const val SECRET_KEY = "fc93cb07e1ad92898527100e58a1cf1d1e7f65e9a266a6f87f3c84feb541c7b3"
     }
 }

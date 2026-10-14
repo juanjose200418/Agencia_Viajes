@@ -1,13 +1,29 @@
 package com.example.model
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
 import jakarta.persistence.*
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.security.core.userdetails.UserDetails
 
+@JsonIgnoreProperties(
+    "password",
+    "username",
+    "authorities",
+    "enabled",
+    "accountNonExpired",
+    "accountNonLocked",
+    "credentialsNonExpired",
+)
 @Entity
-@Table(name = "_user")
+@Table(
+    name = "_user",
+    indexes = [
+        Index(name = "idx_user_deleted", columnList = "deleted"),
+        Index(name = "idx_user_role", columnList = "role")
+    ]
+)
 data class User(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,6 +54,10 @@ data class User(
 
     var deleted: Boolean? = false,
 
+    var blocked: Boolean? = false,
+
+    var mustChangePassword: Boolean? = false,
+
     @OneToOne(cascade = [CascadeType.ALL])
     @JoinColumn(name = "file_id", referencedColumnName = "id")
     var userFile : Image? = null,
@@ -52,5 +72,13 @@ data class User(
 
     override fun getUsername(): String {
         return email?: throw IllegalArgumentException("email is null")
+    }
+
+    override fun isAccountNonLocked(): Boolean {
+        return blocked != true
+    }
+
+    override fun isEnabled(): Boolean {
+        return deleted != true
     }
 }

@@ -30,4 +30,10 @@ export class User {
   
   @JsonProperty("deleted", Boolean, true)
   deleted?: boolean = false;              
+
+  @JsonProperty("blocked", Boolean, true)
+  blocked?: boolean = false;
+
+  @JsonProperty("mustChangePassword", Boolean, true)
+  mustChangePassword?: boolean = false;
 }

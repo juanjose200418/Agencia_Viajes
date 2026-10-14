@@ -1,7 +1,6 @@
 package com.example.security
 
 import com.example.model.User
-import com.example.model.UserIdentity
 import com.example.service.UserService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.core.context.SecurityContextHolder

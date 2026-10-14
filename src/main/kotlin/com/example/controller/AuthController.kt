@@ -1,8 +1,8 @@
 package com.example.controller
 
 import com.example.jwt.service.AuthService
+import com.example.model.AuthResponse
 import com.example.model.Credential
-import com.example.model.JwtToken
 import com.example.model.Role
 import com.example.model.User
 import com.example.service.UserService
@@ -22,11 +22,10 @@ class AuthController {
     lateinit var  authService: AuthService
 
     @PostMapping("/login")
-    fun login(@RequestBody request: Credential): JwtToken {
+    fun login(@RequestBody request: Credential): AuthResponse {
         return authService.login(request)
     }
 
-    @PreAuthorize("hasAnyAuthority('SUPER_ADMIN')")
     @PostMapping("/register")
     fun create(@RequestBody request: User): User {
         request.role = Role.USER
