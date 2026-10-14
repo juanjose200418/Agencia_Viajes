@@ -1,0 +1,30 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:agencia_test;MODE=PostgreSQL;DATABASE_TO_LOWER=TRUE;DB_CLOSE_DELAY=-1
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    database-platform: org.hibernate.dialect.H2Dialect
+    show-sql: false
+
+  sql:
+    init:
+      mode: never
+
+  ai:
+    openai:
+      api-key: test-key
+
+jwt:
+  secret: test-secret-key-for-context-loads-and-unit-tests-change-in-production
+
+file:
+  storage:
+    path: ./build/test-storage
+    max-image-size-bytes: 5242880
+
+OPENAI_API_KEY: test-key
