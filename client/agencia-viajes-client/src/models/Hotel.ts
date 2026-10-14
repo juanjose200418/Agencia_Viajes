@@ -21,6 +21,18 @@ export class Hotel {
   @JsonProperty("location", String, true)
   location?: string = undefined;
 
+  @JsonProperty("imageUrl", String, true)
+  imageUrl?: string = undefined;
+
+  @JsonProperty("externalUrl", String, true)
+  externalUrl?: string = undefined;
+
+  @JsonProperty("pricePerNight", Number, true)
+  pricePerNight?: number = undefined;
+
+  @JsonProperty("rating", Number, true)
+  rating?: number = undefined;
+
   @JsonProperty("description", String, true)
   description?: string = undefined;
 

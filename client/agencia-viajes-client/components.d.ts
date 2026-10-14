@@ -7,17 +7,18 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
-    ClassBind: typeof import('./src/components/ClassBind.vue')['default']
-    CounterComposition: typeof import('./src/components/CounterComposition.vue')['default']
-    CounterOption: typeof import('./src/components/CounterOption.vue')['default']
-    ExampleFor: typeof import('./src/components/ExampleFor.vue')['default']
-    ExampleSelective: typeof import('./src/components/ExampleSelective.vue')['default']
+    AdminFilterToolbar: typeof import('./src/components/admin/AdminFilterToolbar.vue')['default']
+    DestinationCard: typeof import('./src/components/cards/DestinationCard.vue')['default']
+    DestinationManager: typeof import('./src/components/admin/DestinationManager.vue')['default']
+    FlightCard: typeof import('./src/components/cards/FlightCard.vue')['default']
+    HotelCard: typeof import('./src/components/cards/HotelCard.vue')['default']
+    HotelManager: typeof import('./src/components/admin/HotelManager.vue')['default']
+    ImageUploader: typeof import('./src/components/admin/ImageUploader.vue')['default']
     Login: typeof import('./src/components/Login.vue')['default']
-    PostButton: typeof import('./src/components/PostButton.vue')['default']
-    PostCard: typeof import('./src/components/PostCard.vue')['default']
-    PostContainer: typeof import('./src/components/PostContainer.vue')['default']
     Register: typeof import('./src/components/Register.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    TripSummary: typeof import('./src/components/trip/TripSummary.vue')['default']
+    UserManager: typeof import('./src/components/admin/UserManager.vue')['default']
   }
 }

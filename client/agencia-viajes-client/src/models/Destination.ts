@@ -9,14 +9,23 @@ export class Destination {
   @JsonProperty("name", String, true)
   name?: string = undefined;              
 
+  @JsonProperty("slug", String, true)
+  slug?: string = undefined;
+
+  @JsonProperty("country", String, true)
+  country?: string = undefined;
+
   @JsonProperty("description", String, true)
   description?: string = undefined;       
   
   @JsonProperty("location", String)
   location: string = "";                  
 
-  @JsonProperty("popularAttractions", String, true)
-  popularAttractions?: string = undefined; 
+  @JsonProperty("imageUrl", String, true)
+  imageUrl?: string = undefined;
+
+  @JsonProperty("pointsOfInterest", [String], true)
+  pointsOfInterest?: string[] = undefined;
 
   @JsonProperty("averageCost", Number, true)  
   averageCost?: number = undefined;       

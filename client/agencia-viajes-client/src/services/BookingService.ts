@@ -1,5 +1,5 @@
-import axios, { AxiosError } from 'axios';
-import { API_URL } from '../config/Config';
+import { AxiosError } from 'axios';
+import api from './api';
 import { Booking } from '../models/Booking';
 
 interface ErrorResponse {
@@ -7,10 +7,10 @@ interface ErrorResponse {
 }
 
 class BookingService{
-    
-    static async create(boolean: Booking): Promise <Booking>{
+
+    static async create(booking: Booking): Promise<Booking>{
         try{
-            const response = await axios.post<Booking>(`${API_URL}/bookings`, Booking)
+            const response = await api.post<Booking>('/bookings', booking)
             return response.data;
         }catch (error) {
             const axiosError = error as AxiosError<ErrorResponse>;
@@ -18,9 +18,9 @@ class BookingService{
         }
     }
 
-    static async getAll(): Promise <Booking[]>{
+    static async getAll(): Promise<Booking[]>{
         try{
-            const response = await axios.get<Booking[]>(`${API_URL}/bookings`)
+            const response = await api.get<Booking[]>('/bookings')
             return response.data
         }catch (error){
             const axiosError = error as AxiosError<ErrorResponse>;
@@ -28,19 +28,19 @@ class BookingService{
         }
     }
 
-    static async getById(id: number): Promise <Booking>{
+    static async getById(id: number): Promise<Booking>{
         try{
-            const response = await axios.get <Booking>(`${API_URL}/bookings/${id}`)
+            const response = await api.get<Booking>(`/bookings/${id}`)
             return response.data
         }catch (error){
             const axiosError = error as AxiosError<ErrorResponse>;
             throw new Error(`Error al obtener el booking por su ID ${id}: ${axiosError.response?.data?.message || axiosError.message}`);
         }
     }
-    static async update(id: number, booking: Booking):Promise <Booking>{
+    static async update(id: number, booking: Booking):Promise<Booking>{
         try{
-            const response = await axios.put <Booking>(`${API_URL}/bookings/${id}`, booking)
-            return response.data 
+            const response = await api.put<Booking>(`/bookings/${id}`, booking)
+            return response.data
         }catch (error){
             const axiosError = error as AxiosError<ErrorResponse>;
             throw new Error(`Error al actualizar el bookig ${id}: ${axiosError.response?.data?.message || axiosError.message}`);
@@ -48,13 +48,13 @@ class BookingService{
     }
     static async deleteById(id: number): Promise<{ message: string }> {
         try {
-            await axios.delete(`${API_URL}/bookings/${id}`);
+            await api.delete(`/bookings/${id}`);
             return { message: 'booking eliminado con éxito' };
         } catch (error) {
             const axiosError = error as AxiosError<ErrorResponse>;
             throw new Error(`Error al eliminar el booking con ID ${id}: ${axiosError.response?.data?.message || axiosError.message}`);
         }
     }
-}    
+}
 
 export default BookingService;

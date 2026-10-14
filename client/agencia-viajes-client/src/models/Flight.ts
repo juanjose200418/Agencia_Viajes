@@ -24,6 +24,15 @@ export class Flight {
   @JsonProperty("airline", String, true)    
   airline?: string = undefined;             
   
+  @JsonProperty("origin", String, true)
+  origin?: string = undefined;
+
+  @JsonProperty("stops", Number, true)
+  stops?: number = undefined;
+
+  @JsonProperty("destinationId", Number, true)
+  destinationId?: number = undefined;
+
   @JsonProperty("deleted", Boolean, true)   
   deleted?: boolean = false;                
 }

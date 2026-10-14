@@ -19,10 +19,18 @@ declare module 'vue-router/auto-routes' {
    */
   export interface RouteNamedMap {
     '/': RouteRecordInfo<'/', '/', Record<never, never>, Record<never, never>>,
+    '/admin': RouteRecordInfo<'/admin', '/admin', Record<never, never>, Record<never, never>>,
     '/destinations': RouteRecordInfo<'/destinations', '/destinations', Record<never, never>, Record<never, never>>,
+    '/destinations/[id]': RouteRecordInfo<'/destinations/[id]', '/destinations/:id', { id: ParamValue<true> }, { id: ParamValue<false> }>,
+    '/destinos/': RouteRecordInfo<'/destinos/', '/destinos', Record<never, never>, Record<never, never>>,
+    '/destinos/[slug]/hoteles': RouteRecordInfo<'/destinos/[slug]/hoteles', '/destinos/:slug/hoteles', { slug: ParamValue<true> }, { slug: ParamValue<false> }>,
+    '/destinos/[slug]/hoteles/[hotelId]': RouteRecordInfo<'/destinos/[slug]/hoteles/[hotelId]', '/destinos/:slug/hoteles/:hotelId', { slug: ParamValue<true>, hotelId: ParamValue<true> }, { slug: ParamValue<false>, hotelId: ParamValue<false> }>,
     '/hotels': RouteRecordInfo<'/hotels', '/hotels', Record<never, never>, Record<never, never>>,
     '/listHotel': RouteRecordInfo<'/listHotel', '/listHotel', Record<never, never>, Record<never, never>>,
     '/login': RouteRecordInfo<'/login', '/login', Record<never, never>, Record<never, never>>,
     '/register': RouteRecordInfo<'/register', '/register', Record<never, never>, Record<never, never>>,
+    '/search': RouteRecordInfo<'/search', '/search', Record<never, never>, Record<never, never>>,
+    '/superadmin': RouteRecordInfo<'/superadmin', '/superadmin', Record<never, never>, Record<never, never>>,
+    '/users': RouteRecordInfo<'/users', '/users', Record<never, never>, Record<never, never>>,
   }
 }

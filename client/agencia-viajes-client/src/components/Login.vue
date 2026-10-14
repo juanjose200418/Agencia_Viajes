@@ -1,5 +1,5 @@
 <template>
-  <v-sheet class="mx-auto" width="400">
+  <v-sheet class="mx-auto login-sheet" width="100%">
     <v-form @submit.prevent="submitForm" fast-fail>
       <v-text-field
         v-model="credential.email"
@@ -15,13 +15,29 @@
         :rules="passwordRules"
         label="Contraseña"
         placeholder="Introduce la contraseña"
-        type="password"
+        :type="showPassword ? 'text' : 'password'"
+        :append-inner-icon="showPassword ? 'mdi-eye-off' : 'mdi-eye'"
+        :aria-label="showPassword ? 'Ocultar contraseña' : 'Mostrar contraseña'"
+        :aria-pressed="showPassword"
         required
+        @click:append-inner="togglePassword"
+        @keydown="detectCapsLock"
+        @keyup="detectCapsLock"
+        @focus="detectCapsLock"
+        @blur="capsLockOn = false"
       ></v-text-field>
 
-      <v-btn class="mt-2" type="submit" :disabled="!formIsValid" block>
+      <div v-if="capsLockOn" class="caps-warning" role="status" aria-live="polite">
+        ⚠ Bloq Mayús está activado
+      </div>
+
+      <v-btn class="mt-2 login-btn" type="submit" :disabled="!formIsValid" block>
         Iniciar Sesión
       </v-btn>
+
+      <v-alert v-if="sessionMessage" type="warning" class="mt-3" prominent>
+        {{ sessionMessage }}
+      </v-alert>
 
       <v-alert v-if="errorMessage" type="error" class="mt-3" prominent>
         {{ errorMessage }}
@@ -35,7 +51,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, computed } from 'vue';
+import { ref, computed, onMounted } from 'vue';
 import { useRouter } from 'vue-router';  
 import { Credential } from '../models/Credential';
 import UserService from '../services/UserService';
@@ -45,6 +61,14 @@ const router = useRouter();
 const credential = ref<Credential>(new Credential('', ''));
 const errorMessage = ref<string | null>(null);
 const successMessage = ref<string | null>(null);
+const sessionMessage = ref<string | null>(null);
+const showPassword = ref(false);
+const capsLockOn = ref(false);
+
+onMounted(() => {
+  sessionMessage.value = sessionStorage.getItem('authMessage');
+  sessionStorage.removeItem('authMessage');
+});
 
 // Reglas de validación para el formulario
 const emailRules = [
@@ -72,10 +96,12 @@ const submitForm = async () => {
     // Almacenar el token y los datos del usuario en localStorage
     localStorage.setItem('authToken', token);
     localStorage.setItem('user', JSON.stringify(user));
+    window.dispatchEvent(new Event('auth-changed'));
 
     // Mostrar mensaje de éxito
     successMessage.value = 'Inicio de sesión exitoso!';
     errorMessage.value = null;
+    sessionMessage.value = null;
 
     router.push('/');
     
@@ -85,7 +111,35 @@ const submitForm = async () => {
     successMessage.value = null;
   }
 };
+
+function togglePassword() {
+  showPassword.value = !showPassword.value;
+}
+
+function detectCapsLock(event: KeyboardEvent | FocusEvent) {
+  if ('getModifierState' in event) {
+    capsLockOn.value = event.getModifierState('CapsLock');
+  }
+}
 </script>
 
 <style scoped>
+.caps-warning {
+  color: #ffb74d;
+  font-size: 0.85rem;
+  margin-top: -14px;
+  margin-bottom: 10px;
+}
+
+.login-sheet {
+  max-width: 420px;
+}
+
+.login-btn {
+  min-height: 46px;
+}
+
+:deep(.v-field__append-inner) {
+  align-items: center;
+}
 </style>

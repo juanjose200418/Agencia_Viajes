@@ -1,16 +1,16 @@
 <template>
-  <v-sheet class="mx-auto" width="400">
+  <v-sheet class="mx-auto register-sheet" width="100%">
     <v-form @submit.prevent="submitForm" fast-fail>
       <v-text-field
         v-model="user.firstname"
         :rules="nameRules"
-        label="Nombre"
-        placeholder="Introduce el nombre"
+        label="Nombre de usuario"
+        placeholder="Introduce un nombre único"
+        required
       ></v-text-field>
 
       <v-text-field
         v-model="user.lastname"
-        :rules="nameRules"
         label="Apellido"
         placeholder="Introduce el apellido"
       ></v-text-field>
@@ -54,7 +54,7 @@
         placeholder="Introduce la dirección"
       ></v-text-field>
 
-      <v-btn class="mt-2" type="submit" :disabled="passwordMismatch || !formIsValid" block>
+      <v-btn class="mt-2 register-btn" type="submit" :disabled="passwordMismatch || !formIsValid" block>
         Registrar
       </v-btn>
 
@@ -100,8 +100,8 @@ const successMessage = ref<string | null>(null);
 
 // Reglas de validación
 const nameRules = [
-  (v: string) => !!v || 'Nombre es obligatorio',
-  (v: string) => (v && v.length <= 30) || 'El nombre debe tener menos de 30 caracteres'
+  (v: string) => !!v?.trim() || 'Nombre de usuario es obligatorio',
+  (v: string) => (v?.trim().length ?? 0) <= 30 || 'El nombre debe tener menos de 30 caracteres'
 ];
 
 const emailRules = [
@@ -120,7 +120,7 @@ const confirmPasswordRule = (v: string) => {
 
 const passwordMismatch = computed(() => user.value.pass !== confirmPassword.value);
 const formIsValid = computed(() => {
-  return user.value.firstname && user.value.lastname && 
+  return !!user.value.firstname?.trim() &&
          user.value.email && user.value.pass && 
          !passwordMismatch.value;
 });
@@ -128,7 +128,10 @@ const formIsValid = computed(() => {
 const submitForm = async () => {
   if (!passwordMismatch.value) {
     try {
-      const response = await UserService.create(user.value);
+      user.value.firstname = user.value.firstname?.trim();
+      user.value.lastname = user.value.lastname?.trim();
+      user.value.email = user.value.email?.trim();
+      await UserService.create(user.value);
       successMessage.value = 'Usuario creado con éxito';
       errorMessage.value = null;
     } catch (error : unknown) {
@@ -140,6 +143,14 @@ const submitForm = async () => {
 </script>
 
 <style scoped>
+.register-sheet {
+  max-width: 460px;
+}
+
+.register-btn {
+  min-height: 46px;
+}
+
 .user-form {
   max-width: 400px;
   margin: 0 auto;

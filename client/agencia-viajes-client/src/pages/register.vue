@@ -11,11 +11,16 @@ import Register from '../components/Register.vue';
 
 <style scoped>
 .register-container {
-  max-width: 500px; 
+  width: min(100%, 560px);
   margin: 0 auto; 
-  padding: 20px;
-  border: 1px solid #000;
-  border-radius: 5px;
+  padding: clamp(16px, 4vw, 24px);
+  border-radius: 16px;
   background-color: #0000;
+}
+
+h1 {
+  font-size: clamp(1.7rem, 8vw, 2.4rem);
+  line-height: 1.1;
+  margin-bottom: 16px;
 }
 </style>

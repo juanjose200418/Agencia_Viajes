@@ -1,6 +1,7 @@
-import axios, { AxiosError } from 'axios';
-import { API_URL } from '../config/Config';
+import { AxiosError } from 'axios';
+import api from './api';
 import { Hotel } from '../models/Hotel';
+import { PageResponse } from '../models/PageResponse';
 
 interface ErrorResponse {
     message: string;
@@ -9,7 +10,7 @@ interface ErrorResponse {
 class HotelService {
     static async create(hotel: Hotel): Promise<Hotel> {
         try {
-            const response = await axios.post<Hotel>(`${API_URL}/hotels`, hotel);
+            const response = await api.post<Hotel>('/hotels', hotel);
             return response.data;
         } catch (error) {
             const axiosError = error as AxiosError<ErrorResponse>;
@@ -19,7 +20,7 @@ class HotelService {
 
     static async getAll(): Promise<Hotel[]> {
         try {
-            const response = await axios.get<Hotel[]>(`${API_URL}/hotels`);
+            const response = await api.get<Hotel[]>('/hotels');
             return response.data;
         } catch (error) {
             const axiosError = error as AxiosError<ErrorResponse>;
@@ -27,9 +28,19 @@ class HotelService {
         }
     }
 
+    static async getPage(page = 0, size = 50): Promise<PageResponse<Hotel>> {
+        try {
+            const response = await api.get<PageResponse<Hotel>>('/hotels', { params: { page, size } });
+            return response.data;
+        } catch (error) {
+            const axiosError = error as AxiosError<ErrorResponse>;
+            throw new Error(`Error al paginar hoteles: ${axiosError.response?.data?.message || axiosError.message}`);
+        }
+    }
+
     static async getById(id: number): Promise<Hotel> {
         try {
-            const response = await axios.get<Hotel>(`${API_URL}/hotels/${id}`);
+            const response = await api.get<Hotel>(`/hotels/${id}`);
             return response.data;
         } catch (error) {
             const axiosError = error as AxiosError<ErrorResponse>;
@@ -39,7 +50,7 @@ class HotelService {
 
     static async update(id: number, hotel: Hotel): Promise<Hotel> {
         try {
-            const response = await axios.put<Hotel>(`${API_URL}/hotels/${id}`, hotel);
+            const response = await api.put<Hotel>(`/hotels/${id}`, hotel);
             return response.data;
         } catch (error) {
             const axiosError = error as AxiosError<ErrorResponse>;
@@ -49,7 +60,7 @@ class HotelService {
 
     static async deleteById(id: number): Promise<{ message: string }> {
         try {
-            await axios.delete(`${API_URL}/hotels/${id}`);
+            await api.delete(`/hotels/${id}`);
             return { message: 'Hotel eliminado con éxito' };
         } catch (error) {
             const axiosError = error as AxiosError<ErrorResponse>;
@@ -59,7 +70,7 @@ class HotelService {
 
     static async getByDestinationId(destinationId: number): Promise<Hotel[]> {
         try {
-            const response = await axios.get<Hotel[]>(`${API_URL}/destination/${destinationId}/hotels`);
+            const response = await api.get<Hotel[]>(`/destination/${destinationId}/hotels`);
             return response.data;
         } catch (error) {
             const axiosError = error as AxiosError<ErrorResponse>;
