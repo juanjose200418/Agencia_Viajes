@@ -42,3 +42,22 @@ out/
 ### env ###
 .env
 
+# Local environment variants
+.env.*
+!.env.example
+
+# Dependencies and generated build outputs
+**/node_modules/
+**/dist/
+**/target/
+
+# Runtime-generated uploads
+src/main/resources/static/storage/
+
+# Generated video outputs
+videos/**/renders/
+videos/**/snapshots/
+
+# Logs and temporary files
+*.log
+*.tmp
