@@ -1,9 +1,9 @@
 package com.example.service
 
-import BaseService
 import com.example.model.File
 import com.example.model.Image
 import com.example.repository.ImageRepository
+import com.example.shared.utils.BaseService
 import org.springframework.stereotype.Service
 
 @Service

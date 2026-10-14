@@ -32,6 +32,7 @@ class Security(
                         "/webjars/**"
                     ).permitAll()
                     .requestMatchers("/auth/**").permitAll()
+                    .requestMatchers("/storage/**").permitAll()
                     .anyRequest().authenticated()
             }
             .sessionManagement { sessionManager ->
