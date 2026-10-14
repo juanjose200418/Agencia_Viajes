@@ -1,0 +1,588 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      :root {
+        --blue: #1867c0;
+        --blue-soft: #90caf9;
+        --accent: #ff9800;
+        --canvas: #070b12;
+        --surface: #121212;
+        --surface-raised: #1e1e1e;
+        --ink: #f7f9fc;
+        --muted: rgba(255, 255, 255, 0.68);
+      }
+
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+      html, body { width: 1920px; height: 1080px; overflow: hidden; background: var(--canvas); }
+      body { font-family: Inter, "Segoe UI", Arial, sans-serif; color: var(--ink); }
+      #root { position: relative; width: 1920px; height: 1080px; overflow: hidden; background: var(--canvas); }
+      .clip { position: absolute; inset: 0; overflow: hidden; }
+
+      .base {
+        background:
+          radial-gradient(circle at 18% 14%, rgba(24, 103, 192, 0.23), transparent 30%),
+          linear-gradient(138deg, #070b12 0%, #0b1420 54%, #05080d 100%);
+      }
+
+      .base::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-image:
+          linear-gradient(rgba(255, 255, 255, 0.027) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255, 255, 255, 0.027) 1px, transparent 1px);
+        background-size: 80px 80px;
+      }
+
+      .scene-image {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        will-change: transform;
+      }
+
+      .intro-shade {
+        position: absolute;
+        inset: 0;
+        background:
+          linear-gradient(90deg, rgba(3, 9, 16, 0.9) 0%, rgba(3, 9, 16, 0.6) 45%, rgba(3, 9, 16, 0.2) 77%),
+          linear-gradient(0deg, rgba(3, 9, 16, 0.7), transparent 54%);
+      }
+
+      .intro-brand {
+        position: absolute;
+        left: 150px;
+        top: 92px;
+        display: flex;
+        align-items: center;
+        gap: 13px;
+        font-size: 17px;
+        font-weight: 760;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        opacity: 0;
+      }
+
+      .brand-line { width: 42px; height: 4px; border-radius: 99px; background: var(--blue-soft); }
+
+      .intro-copy {
+        position: absolute;
+        left: 150px;
+        bottom: 142px;
+        width: 1120px;
+        opacity: 0;
+      }
+
+      .eyebrow {
+        display: block;
+        margin-bottom: 20px;
+        color: var(--blue-soft);
+        font-size: 17px;
+        font-weight: 800;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+      }
+
+      .intro-copy h1 {
+        max-width: 1100px;
+        font-size: 78px;
+        line-height: 0.98;
+        letter-spacing: -0.052em;
+        font-weight: 820;
+        text-wrap: balance;
+      }
+
+      .intro-rule {
+        width: 420px;
+        height: 5px;
+        margin-top: 34px;
+        transform: scaleX(0);
+        transform-origin: left center;
+        border-radius: 99px;
+        background: linear-gradient(90deg, var(--blue-soft), rgba(144, 202, 249, 0));
+      }
+
+      .product-stage {
+        position: absolute;
+        inset: 0;
+        perspective: 1700px;
+      }
+
+      .beat-label {
+        position: absolute;
+        left: 170px;
+        top: 38px;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        font-size: 34px;
+        line-height: 1;
+        letter-spacing: -0.035em;
+        font-weight: 760;
+        opacity: 0;
+        z-index: 5;
+      }
+
+      .beat-label::before {
+        content: "";
+        width: 9px;
+        height: 34px;
+        border-radius: 99px;
+        background: var(--blue-soft);
+      }
+
+      .results-label { color: #fff; }
+
+      .app-shell {
+        position: absolute;
+        left: 170px;
+        top: 110px;
+        width: 1580px;
+        height: 880px;
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.13);
+        border-radius: 18px;
+        background: var(--surface);
+        box-shadow: 0 42px 120px rgba(0, 0, 0, 0.58);
+        opacity: 0;
+        transform-origin: center 54%;
+        will-change: transform, opacity;
+      }
+
+      .app-bar {
+        height: 72px;
+        padding: 0 32px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background: var(--blue);
+        box-shadow: 0 3px 12px rgba(0, 0, 0, 0.3);
+      }
+
+      .app-brand { font-size: 23px; font-weight: 600; letter-spacing: -0.02em; }
+      .nav { display: flex; align-items: center; gap: 4px; }
+      .nav-item { padding: 11px 15px; border-radius: 5px; color: #fff; font-size: 14px; font-weight: 600; }
+      .nav-item.active { background: rgba(255, 255, 255, 0.16); color: #fff; }
+      .account { display: flex; align-items: center; gap: 8px; }
+
+      .page {
+        position: relative;
+        width: 1240px;
+        height: 808px;
+        margin: 0 auto;
+        padding-top: 46px;
+      }
+
+      .page-title {
+        display: flex;
+        align-items: center;
+        gap: 13px;
+        font-size: 40px;
+        line-height: 1.1;
+        font-weight: 650;
+        letter-spacing: -0.036em;
+      }
+
+      .icon {
+        flex: 0 0 auto;
+        width: 34px;
+        height: 34px;
+        color: rgba(255, 255, 255, 0.88);
+      }
+
+      .page-subtitle { margin-top: 12px; color: var(--muted); font-size: 18px; line-height: 1.4; }
+
+      .search-form {
+        position: relative;
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        margin-top: 30px;
+      }
+
+      .search-field {
+        position: relative;
+        flex: 1;
+        height: 64px;
+        display: flex;
+        align-items: center;
+        padding: 0 22px 0 58px;
+        border: 1px solid rgba(255, 255, 255, 0.42);
+        border-radius: 12px;
+        background: transparent;
+        color: rgba(255, 255, 255, 0.95);
+        font-size: 17px;
+      }
+
+      .search-field .icon { position: absolute; left: 19px; width: 24px; height: 24px; color: rgba(255, 255, 255, 0.67); }
+
+      .field-focus {
+        position: absolute;
+        inset: -7px 207px -7px -7px;
+        border: 2px solid rgba(144, 202, 249, 0.84);
+        border-radius: 16px;
+        box-shadow: 0 0 0 5px rgba(144, 202, 249, 0.09);
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      .typed-caret {
+        display: inline-block;
+        width: 2px;
+        height: 23px;
+        margin-left: 3px;
+        transform: translateY(5px);
+        background: #fff;
+      }
+
+      .search-button {
+        width: 193px;
+        height: 64px;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 9px;
+        border-radius: 12px;
+        background: var(--blue);
+        color: #fff;
+        font-size: 15px;
+        font-weight: 800;
+        box-shadow: 0 10px 24px rgba(24, 103, 192, 0.26);
+        transform-origin: center;
+      }
+
+      .search-button .icon { width: 22px; height: 22px; }
+      .button-label { display: flex; align-items: center; gap: 8px; }
+
+      .button-spinner {
+        position: absolute;
+        width: 26px;
+        height: 26px;
+        border: 3px solid rgba(255, 255, 255, 0.32);
+        border-top-color: #fff;
+        border-radius: 50%;
+        opacity: 0;
+      }
+
+      .ui-pointer {
+        position: absolute;
+        left: 1102px;
+        top: 238px;
+        z-index: 10;
+        width: 24px;
+        height: 30px;
+        opacity: 0;
+        filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5));
+      }
+
+      .post-search { position: relative; height: 420px; margin-top: 28px; }
+      .loading-state, .results-state { position: absolute; inset: 0; opacity: 0; }
+
+      .skeleton-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+      .skeleton-card {
+        height: 280px;
+        position: relative;
+        overflow: hidden;
+        border-radius: 18px;
+        background: #202020;
+        border: 1px solid rgba(255, 255, 255, 0.06);
+      }
+
+      .skeleton-card::before {
+        content: "";
+        position: absolute;
+        left: 20px;
+        right: 20px;
+        bottom: 26px;
+        height: 54px;
+        border-radius: 10px;
+        background:
+          linear-gradient(#313131, #313131) 0 0 / 58% 16px no-repeat,
+          linear-gradient(#2b2b2b, #2b2b2b) 0 34px / 38% 12px no-repeat;
+      }
+
+      .skeleton-sweep {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.08), transparent);
+      }
+
+      .ai-card {
+        min-height: 94px;
+        display: flex;
+        align-items: flex-start;
+        gap: 15px;
+        padding: 18px 21px;
+        border-left: 4px solid var(--blue);
+        border-radius: 18px;
+        background: rgba(24, 103, 192, 0.18);
+        color: #fff;
+        opacity: 0;
+      }
+
+      .robot-box { width: 36px; height: 36px; flex: 0 0 auto; color: var(--blue-soft); }
+      .ai-card h3 { margin-bottom: 6px; font-size: 15px; font-weight: 800; }
+      .ai-card p { color: rgba(255, 255, 255, 0.82); font-size: 16px; line-height: 1.36; }
+
+      .results-title {
+        margin: 21px 0 14px;
+        font-size: 25px;
+        font-weight: 600;
+        opacity: 0;
+      }
+
+      .destination-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+
+      .destination-card {
+        position: relative;
+        height: 255px;
+        overflow: hidden;
+        border-radius: 18px;
+        background: #242424;
+        box-shadow: 0 16px 36px rgba(0, 0, 0, 0.35);
+        opacity: 0;
+        will-change: transform, opacity;
+      }
+
+      .destination-card img { width: 100%; height: 100%; object-fit: cover; transform: scale(1.06); }
+      .card-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0, 0, 0, 0.82), rgba(0, 0, 0, 0.08) 70%); }
+      .card-copy { position: absolute; left: 20px; right: 20px; bottom: 20px; z-index: 2; }
+      .card-copy h3 { margin-bottom: 7px; color: #fff; font-size: 26px; line-height: 1.1; font-weight: 780; }
+      .card-copy p { display: flex; align-items: center; gap: 7px; color: rgba(255, 255, 255, 0.92); font-size: 14px; font-weight: 600; }
+      .location-dot { width: 8px; height: 8px; border: 2px solid #fff; border-radius: 50%; }
+
+      .final-image { opacity: 0.78; }
+      .final-shade {
+        position: absolute;
+        inset: 0;
+        background:
+          linear-gradient(90deg, rgba(4, 10, 18, 0.96) 0%, rgba(4, 10, 18, 0.78) 43%, rgba(4, 10, 18, 0.2) 76%),
+          linear-gradient(0deg, rgba(4, 10, 18, 0.48), transparent 58%);
+      }
+
+      .final-content {
+        position: absolute;
+        left: 150px;
+        top: 250px;
+        width: 900px;
+        opacity: 0;
+      }
+
+      .final-kicker { display: flex; align-items: center; gap: 14px; margin-bottom: 26px; color: var(--blue-soft); font-size: 17px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; }
+      .final-content h2 { font-size: 92px; line-height: 0.93; letter-spacing: -0.062em; font-weight: 830; }
+      .final-tagline { margin-top: 26px; color: rgba(255, 255, 255, 0.9); font-size: 34px; line-height: 1.2; font-weight: 520; letter-spacing: -0.025em; }
+      .ai-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        margin-top: 40px;
+        padding: 12px 18px;
+        border: 1px solid rgba(144, 202, 249, 0.55);
+        border-radius: 999px;
+        background: rgba(24, 103, 192, 0.3);
+        color: #fff;
+        font-size: 16px;
+        font-weight: 760;
+        opacity: 0;
+      }
+
+      .ai-badge::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--blue-soft); box-shadow: 0 0 14px var(--blue-soft); }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="10" data-width="1920" data-height="1080" data-fps="30">
+      <div id="base" class="base clip" data-start="0" data-duration="10" data-track-index="0"></div>
+
+      <section id="intro" class="clip" data-start="0" data-duration="1.5" data-track-index="1">
+        <img class="scene-image intro-image" src="assets/cancun.jpg" alt="Costa tropical" data-layout-allow-overflow />
+        <div class="intro-shade"></div>
+        <div class="intro-brand"><span class="brand-line"></span>Agencia Viajes · Asesor IA</div>
+        <div class="intro-copy">
+          <span class="eyebrow">El viaje empieza aquí</span>
+          <h1>Tu próximo viaje empieza con una idea.</h1>
+          <div class="intro-rule"></div>
+        </div>
+      </section>
+
+      <section id="advisor" class="clip" data-start="1.5" data-duration="6.8" data-track-index="1" data-layout-allow-occlusion data-layout-allow-overlap>
+        <div class="product-stage">
+          <div class="beat-label advisor-label">Describe tu viaje.</div>
+          <div class="beat-label results-label">Tu viaje. A tu medida.</div>
+
+          <div class="app-shell">
+            <header class="app-bar">
+              <div class="app-brand">EncuentraTuChollo.com</div>
+              <nav class="nav" aria-label="Navegación principal">
+                <span class="nav-item">Home</span>
+                <span class="nav-item active">Búsqueda IA</span>
+                <span class="nav-item">Destinos</span>
+                <span class="nav-item">Hoteles</span>
+                <span class="nav-item account">
+                  <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M4.8 20c.8-4 3.2-6 7.2-6s6.4 2 7.2 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+                  Cuenta
+                </span>
+              </nav>
+            </header>
+
+            <main class="page">
+              <h1 class="page-title">
+                <svg class="icon" viewBox="0 0 36 36" aria-hidden="true">
+                  <path d="M18 4v4M12 4h12M8 14a5 5 0 0 1 5-5h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H13a5 5 0 0 1-5-5V14Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                  <circle cx="14" cy="18" r="2" fill="currentColor"/><circle cx="22" cy="18" r="2" fill="currentColor"/>
+                  <path d="M14 24h8M4 17v6M32 17v6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+                Buscador inteligente
+              </h1>
+              <p class="page-subtitle">Escribe qué buscas (playa, montaña, ciudad, presupuesto, gastronomía…) y la IA te recomienda destinos.</p>
+
+              <div class="search-form">
+                <div class="field-focus"></div>
+                <div class="search-field">
+                  <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="m15.5 15.5 5 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+                  <span id="typed-query"></span><span class="typed-caret"></span>
+                </div>
+                <div class="search-button">
+                  <span class="button-label">
+                    <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m4 20 11-11M12 5l2-2 7 7-2 2M5 5v4M3 7h4M18 16v5M15.5 18.5h5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    Buscar con IA
+                  </span>
+                  <span class="button-spinner"></span>
+                </div>
+              </div>
+
+              <svg class="ui-pointer" viewBox="0 0 24 30" aria-hidden="true"><path d="M2 2 21 17l-9 1-5 9L2 2Z" fill="#fff" stroke="#111827" stroke-width="1.6" stroke-linejoin="round"/></svg>
+
+              <div class="post-search">
+                <div class="loading-state">
+                  <div class="skeleton-grid">
+                    <div class="skeleton-card" data-layout-allow-overflow><span class="skeleton-sweep" data-layout-allow-overflow></span></div>
+                    <div class="skeleton-card" data-layout-allow-overflow><span class="skeleton-sweep" data-layout-allow-overflow></span></div>
+                    <div class="skeleton-card" data-layout-allow-overflow><span class="skeleton-sweep" data-layout-allow-overflow></span></div>
+                  </div>
+                </div>
+
+                <div class="results-state">
+                  <div class="ai-card">
+                    <svg class="robot-box" viewBox="0 0 36 36" aria-hidden="true">
+                      <path d="M18 4v4M12 4h12M8 14a5 5 0 0 1 5-5h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H13a5 5 0 0 1-5-5V14Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                      <circle cx="14" cy="18" r="2" fill="currentColor"/><circle cx="22" cy="18" r="2" fill="currentColor"/>
+                      <path d="M14 24h8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                    <div><h3>Recomendación de la IA</h3><p>Estos destinos del catálogo encajan con una escapada de playa para este verano.</p></div>
+                  </div>
+                  <h2 class="results-title">Destinos recomendados</h2>
+                  <div class="destination-grid">
+                    <article class="destination-card" data-layout-allow-overflow>
+                      <img src="assets/cancun-card.jpg" alt="Vista de Cancún, México" data-layout-allow-overflow />
+                      <div class="card-overlay"></div>
+                      <div class="card-copy"><h3>Cancún</h3><p><span class="location-dot"></span>México</p></div>
+                    </article>
+                    <article class="destination-card bali-card" data-layout-allow-overflow>
+                      <img src="assets/bali.jpg" alt="Vista de Bali, Indonesia" data-layout-allow-overflow />
+                      <div class="card-overlay"></div>
+                      <div class="card-copy"><h3>Bali</h3><p><span class="location-dot"></span>Indonesia</p></div>
+                    </article>
+                    <article class="destination-card" data-layout-allow-overflow>
+                      <img src="assets/phuket.jpg" alt="Vista de Phuket, Tailandia" data-layout-allow-overflow />
+                      <div class="card-overlay"></div>
+                      <div class="card-copy"><h3>Phuket</h3><p><span class="location-dot"></span>Tailandia</p></div>
+                    </article>
+                  </div>
+                </div>
+              </div>
+            </main>
+          </div>
+        </div>
+      </section>
+
+      <section id="final" class="clip" data-start="8.3" data-duration="1.7" data-track-index="1" data-layout-allow-overflow>
+        <img class="scene-image final-image" src="assets/bali-final.jpg" alt="Costa de Bali" data-layout-allow-overflow />
+        <div class="final-shade"></div>
+        <div class="final-content">
+          <div class="final-kicker"><span class="brand-line"></span>AI Travel Advisor</div>
+          <h2>Agencia Viajes</h2>
+          <p class="final-tagline">Descubre. Decide. Viaja.</p>
+          <div class="ai-badge">Impulsado por IA</div>
+        </div>
+      </section>
+
+      <audio id="soundtrack" class="clip" data-start="0" data-duration="10" data-track-index="9" data-volume="0.9" src="assets/soundtrack-final.wav"></audio>
+    </div>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+
+      const tl = gsap.timeline({ paused: true });
+      const query = "Quiero una escapada de playa para este verano";
+      const typedQuery = document.getElementById("typed-query");
+      const typeState = { chars: 0 };
+
+      tl.addLabel("idea", 0)
+        .to(".intro-image", { scale: 1.035, duration: 1.5, ease: "power1.out" }, 0)
+        .to(".intro-brand", { opacity: 1, y: 0, duration: 0.36, ease: "power2.out" }, 0.08)
+        .to(".intro-copy", { opacity: 1, y: 0, duration: 0.48, ease: "power3.out" }, 0.15)
+        .to(".intro-rule", { scaleX: 1, duration: 0.58, ease: "power3.out" }, 0.36)
+        .to(".intro-copy", { opacity: 0, y: -16, duration: 0.24, ease: "power2.in" }, 1.24)
+        .to(".intro-brand", { opacity: 0, duration: 0.2, ease: "power1.in" }, 1.3)
+        .set(".intro-copy", { opacity: 0 }, 1.5)
+        .set(".intro-brand", { opacity: 0 }, 1.5)
+
+        .addLabel("describe", 1.5)
+        .fromTo(".app-shell", { y: 34, scale: 0.96, rotationX: 2 }, { opacity: 1, y: 0, scale: 1, rotationX: 0, duration: 0.5, ease: "power3.out", immediateRender: false }, 1.5)
+        .to(".advisor-label", { opacity: 1, x: 0, duration: 0.38, ease: "power2.out" }, 1.62)
+        .to(".field-focus", { opacity: 1, scale: 1, duration: 0.3, ease: "power2.out" }, 1.95)
+        .to(".app-shell", { scale: 1.025, y: -4, duration: 0.72, ease: "power2.inOut" }, 2.0)
+        .to(typeState, {
+          chars: query.length,
+          duration: 1.64,
+          ease: "none",
+          onUpdate: () => { typedQuery.textContent = query.slice(0, Math.floor(typeState.chars)); }
+        }, 2.02)
+        .to(".typed-caret", { opacity: 0.16, duration: 0.11, repeat: 13, yoyo: true, ease: "steps(1)" }, 2.02)
+        .to(".ui-pointer", { opacity: 1, duration: 0.16, ease: "power1.out" }, 3.62)
+        .to(".ui-pointer", { x: 224, y: 2, duration: 0.38, ease: "power2.inOut" }, 3.72)
+        .to(".search-button", { scale: 0.96, duration: 0.1, ease: "power1.in" }, 4.08)
+        .to(".search-button", { scale: 1, duration: 0.16, ease: "power2.out" }, 4.18)
+        .to(".ui-pointer", { opacity: 0, duration: 0.16, ease: "power1.out" }, 4.22)
+        .to(".button-label", { opacity: 0, duration: 0.12, ease: "power1.out" }, 4.2)
+        .to(".button-spinner", { opacity: 1, duration: 0.12, ease: "power1.out" }, 4.23)
+        .to(".button-spinner", { rotation: 720, duration: 1.1, ease: "none" }, 4.23)
+        .to(".field-focus", { opacity: 0, duration: 0.2, ease: "power1.out" }, 4.24)
+        .to(".app-shell", { scale: 1, y: 0, duration: 0.45, ease: "power2.inOut" }, 4.22)
+        .to(".loading-state", { opacity: 1, duration: 0.2, ease: "power1.out" }, 4.26)
+        .fromTo(".skeleton-sweep", { xPercent: -105 }, { xPercent: 205, duration: 0.92, stagger: 0.08, ease: "power1.inOut", immediateRender: false }, 4.34)
+
+        .addLabel("recommendations", 5.5)
+        .to(".advisor-label", { opacity: 0, y: -10, duration: 0.2, ease: "power1.in" }, 5.28)
+        .to(".loading-state", { opacity: 0, y: -12, duration: 0.24, ease: "power2.in" }, 5.28)
+        .set(".results-state", { opacity: 1 }, 5.46)
+        .to(".results-label", { opacity: 1, x: 0, duration: 0.36, ease: "power2.out" }, 5.5)
+        .to(".button-spinner", { opacity: 0, duration: 0.12, ease: "power1.out" }, 5.48)
+        .to(".button-label", { opacity: 1, duration: 0.16, ease: "power1.out" }, 5.5)
+        .fromTo(".ai-card", { y: 18 }, { opacity: 1, y: 0, duration: 0.38, ease: "power3.out", immediateRender: false }, 5.5)
+        .fromTo(".results-title", { y: 12 }, { opacity: 1, y: 0, duration: 0.32, ease: "power2.out", immediateRender: false }, 5.66)
+        .fromTo(".destination-card", { y: 34, scale: 0.96 }, { opacity: 1, y: 0, scale: 1, duration: 0.46, stagger: 0.1, ease: "power3.out", immediateRender: false }, 5.76)
+        .to(".destination-card img", { scale: 1, duration: 1.45, stagger: 0.06, ease: "power1.out" }, 5.82)
+        .to(".app-shell", { scale: 1.018, y: -8, duration: 1.18, ease: "power1.inOut" }, 6.42)
+        .to(".bali-card", { scale: 1.025, y: -5, duration: 0.54, ease: "power2.out" }, 7.48)
+        .to(".app-shell", { opacity: 0, scale: 1.055, y: -18, duration: 0.28, ease: "power2.in" }, 8.02)
+        .to(".results-label", { opacity: 0, duration: 0.2, ease: "power1.in" }, 8.04)
+        .set(".app-shell", { opacity: 0 }, 8.3)
+        .set(".product-stage", { opacity: 0 }, 8.3)
+
+        .addLabel("brand", 8.3)
+        .to(".final-image", { scale: 1.035, opacity: 0.9, duration: 1.7, ease: "power1.out" }, 8.3)
+        .fromTo(".final-content", { y: 24 }, { opacity: 1, y: 0, duration: 0.46, ease: "power3.out", immediateRender: false }, 8.34)
+        .fromTo(".ai-badge", { y: 12 }, { opacity: 1, y: 0, duration: 0.34, ease: "power2.out", immediateRender: false }, 8.72);
+
+      window.__timelines.main = tl;
+    </script>
+  </body>
+</html>
