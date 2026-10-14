@@ -1,6 +1,6 @@
 # EncuentraTuChollo.com - Fullstack Travel Platform
 
-Plataforma fullstack para una agencia de viajes moderna: catálogo de destinos, hoteles con enlaces reales de reserva, paneles Admin/SuperAdmin, autenticación JWT, carga de imágenes, PostgreSQL y buscador inteligente con fallback local.
+Plataforma fullstack para una agencia de viajes moderna: catálogo de destinos, hoteles con enlaces reales de reserva, paneles Admin/SuperAdmin, autenticación JWT, carga de imágenes, PostgreSQL y buscador inteligente con fallback local Y PROTOCOLO MCP.
 
 > Proyecto creado como demo profesional de portfolio. La aplicación no procesa pagos dentro de la plataforma: las reservas se completan mediante enlaces externos reales, principalmente Booking.
 
