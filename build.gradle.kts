@@ -1,3 +1,5 @@
+import org.springframework.boot.gradle.tasks.run.BootRun
+
 plugins {
 	id("org.springframework.boot") version "3.4.1"
 	id("io.spring.dependency-management") version "1.1.7"
@@ -17,9 +19,33 @@ java {
 
 repositories {
 	mavenCentral()
+
+	// Spring Snapshots
+	maven {
+		url = uri("https://repo.spring.io/snapshot")
+		mavenContent {
+			snapshotsOnly()
+		}
+	}
+
+	// Spring Milestones
+	maven {
+		url = uri("https://repo.spring.io/milestone")
+		mavenContent {
+			releasesOnly()
+		}
+	}
 }
 
 dependencies {
+	// BOM de Spring AI
+	implementation(platform("org.springframework.ai:spring-ai-bom:1.0.0"))
+
+	// Starter de Spring AI para OpenAI
+	implementation("org.springframework.ai:spring-ai-openai")
+	//implementation("com.theokanning.openai-gpt3-java:client:0.11.1")
+
+
 	// Swagger 2 con Springfox
 	implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.7.0")
 
@@ -55,6 +81,11 @@ dependencies {
 	// Validations
 	implementation("org.hibernate.validator:hibernate-validator:8.0.0.Final")
 
+	//Test
+	implementation("org.springframework.boot:spring-boot-starter")
+	implementation("org.jetbrains.kotlin:kotlin-reflect")
+	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+	testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
 
 kotlin {
@@ -65,4 +96,20 @@ kotlin {
 
 tasks.withType<Test> {
 	useJUnitPlatform()
+}
+
+tasks.named<BootRun>("bootRun") {
+	val envFile = File(rootProject.projectDir, ".env")
+	if (envFile.exists()) {
+		envFile.readLines()
+			.map { it.trim() }
+			.filter { it.isNotEmpty() && !it.startsWith("#") && it.contains('=') }
+			.forEach { line ->
+				val key = line.substringBefore('=')
+				val value = line.substringAfter('=')
+				if (value.isNotEmpty() && environment[key] == null) {
+					environment(key, value)
+				}
+			}
+	}
 }

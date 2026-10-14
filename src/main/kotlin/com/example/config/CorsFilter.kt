@@ -11,7 +11,9 @@ import jakarta.servlet.http.HttpServletResponse
 
 @Component("_CorsFilter")
 @Order(Ordered.HIGHEST_PRECEDENCE)
-class CorsFilter : Filter {
+class CorsFilter(
+    @Value("\${cors.allowed-origins:http://localhost:3000}") private val allowedOrigins: String
+) : Filter {
 
     @Throws(IOException::class, ServletException::class)
     override fun doFilter(req: ServletRequest, res: ServletResponse, chain: FilterChain) {
@@ -19,7 +21,11 @@ class CorsFilter : Filter {
         val response = res as HttpServletResponse
         val request = req as HttpServletRequest
 
-        response.setHeader("Access-Control-Allow-Origin", "*")
+        val origin = request.getHeader("Origin")
+        if (origin != null && allowedOrigins.split(",").any { it.trim() == origin }) {
+            response.setHeader("Access-Control-Allow-Origin", origin)
+            response.setHeader("Vary", "Origin")
+        }
         response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, PATCH, DELETE, OPTIONS")
         response.setHeader(
             "Access-Control-Allow-Headers",
@@ -27,6 +33,7 @@ class CorsFilter : Filter {
         )
         response.setHeader("Access-Control-Max-Age", "3600")
         response.setHeader("Access-Control-Expose-Headers", "X-Total-Count")
+        response.setHeader("Access-Control-Allow-Credentials", "true")
 
         if ("OPTIONS".equals(request.method, ignoreCase = true)) {
             response.status = HttpServletResponse.SC_OK

@@ -1,0 +1,17 @@
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: false
+
+  sql:
+    init:
+      mode: never
+
+springdoc:
+  show-actuator: false
+
+logging:
+  level:
+    org.springframework.ai: INFO
+    com.example: INFO
