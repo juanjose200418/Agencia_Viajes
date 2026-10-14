@@ -39,4 +39,9 @@ class FlightController {
     fun update(@PathVariable id: Long, @RequestBody flight: Flight): Flight {
         return flightService.update(id, flight)
     }
+
+    @GetMapping("/destination/{destinationId}/flights")
+    fun getByDestinationId(@PathVariable destinationId: Long): List<Flight> {
+        return flightService.getAllByDestinationId(destinationId)
+    }
 }

@@ -51,4 +51,8 @@ class FlightService {
         }
         return flightRepository.save(flight)
     }
+
+    fun getAllByDestinationId(destinationId: Long): List<Flight> {
+        return flightRepository.findByDestinationId(destinationId)
+    }
 }

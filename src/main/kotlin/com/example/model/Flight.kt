@@ -1,12 +1,16 @@
 package com.example.model
 
-import jakarta.persistence.Entity
-import jakarta.persistence.GeneratedValue
-import jakarta.persistence.GenerationType
-import jakarta.persistence.Id
-import jakarta.persistence.Transient
+import com.fasterxml.jackson.annotation.JsonIgnore
+import jakarta.persistence.*
 
 @Entity
+@Table(
+    indexes = [
+        Index(name = "idx_flight_deleted", columnList = "deleted"),
+        Index(name = "idx_flight_destination_id", columnList = "destination_id"),
+        Index(name = "idx_flight_destination_deleted", columnList = "destination_id, deleted")
+    ]
+)
 data class Flight(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,6 +29,17 @@ data class Flight(
 
     var airline: String? = null,
 
+    var origin: String? = null,
+
+    var stops: Int? = null,
+
     var deleted: Boolean? = false,
 
-): Auditing()
+    @Column(name = "destination_id")
+    var destinationId: Long? = null,
+): Auditing() {
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "destination_id", insertable = false, nullable = false, updatable = false)
+    var destination: Destination? = null
+}

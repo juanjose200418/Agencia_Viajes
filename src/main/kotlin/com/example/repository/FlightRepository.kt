@@ -7,4 +7,5 @@ import org.springframework.stereotype.Repository
 @Repository
 interface FlightRepository : JpaRepository<Flight, Long> {
     fun findAllByDeleted(deleted: Boolean): List<Flight>
+    fun findByDestinationId(destinationId: Long): List<Flight>
 }

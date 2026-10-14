@@ -4,6 +4,13 @@ import com.fasterxml.jackson.annotation.JsonIgnore
 import jakarta.persistence.*
 
 @Entity
+@Table(
+    indexes = [
+        Index(name = "idx_hotel_deleted", columnList = "deleted"),
+        Index(name = "idx_hotel_destination_id", columnList = "destination_id"),
+        Index(name = "idx_hotel_destination_deleted", columnList = "destination_id, deleted")
+    ]
+)
 data class Hotel(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,6 +25,14 @@ data class Hotel(
     var phone: String? = null,
 
     var location: String? = null,
+
+    var imageUrl: String? = null,
+
+    var externalUrl: String? = null,
+
+    var pricePerNight: Double? = null,
+
+    var rating: Double? = null,
 
     var description: String? = null,
 

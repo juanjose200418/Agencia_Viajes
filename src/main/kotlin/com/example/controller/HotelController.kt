@@ -3,6 +3,7 @@ package com.example.controller
 import com.example.model.Hotel
 import com.example.service.HotelService
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.data.domain.Page
 import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
+import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
@@ -21,6 +23,11 @@ class HotelController {
     @GetMapping("/hotels")
     fun getAll(): List<Hotel> {
         return hotelService.getAll()
+    }
+
+    @GetMapping("/hotels", params = ["page", "size"])
+    fun getPage(@RequestParam page: Int, @RequestParam size: Int): Page<Hotel> {
+        return hotelService.getPage(page, size)
     }
 
     @PreAuthorize("hasAnyAuthority('ADMIN', 'SUPER_ADMIN')")

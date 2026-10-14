@@ -1,3 +1,5 @@
+package com.example.shared.utils
+
 import com.example.shared.exception.ResourceNotFoundException
 import com.example.shared.utils.Identifiable
 import org.springframework.data.domain.Example

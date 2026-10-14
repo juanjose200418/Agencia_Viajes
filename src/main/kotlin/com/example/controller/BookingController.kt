@@ -27,13 +27,11 @@ class BookingController {
         return bookingService.getById(id)
     }
 
-    @PreAuthorize("hasAnyAuthority('ADMIN', 'SUPER_ADMIN') or #id == authentication.principal.id")
     @DeleteMapping("bookings/{id}")
     fun deleteById(@PathVariable id: Long) {
         bookingService.deleteById(id)
     }
 
-    @PreAuthorize("hasAnyAuthority('ADMIN', 'SUPER_ADMIN') or #id == authentication.principal.id")
     @PutMapping("bookings/{id}")
     fun update(@PathVariable id: Long, @RequestBody booking: Booking): Booking {
         return bookingService.update(id, booking)

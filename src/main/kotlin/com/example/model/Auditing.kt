@@ -12,10 +12,12 @@ import java.time.LocalDateTime
 @EntityListeners(AuditingEntityListener::class)
 abstract class Auditing(
 
+    @JsonIgnore
     @CreatedDate
     @Column(name = "created_at", updatable = false, nullable = false)
     var createdAt: LocalDateTime? = null,
 
+    @JsonIgnore
     @CreatedBy
     @Column(name = "created_by", updatable = false)
     var createdBy: Long? = null,
