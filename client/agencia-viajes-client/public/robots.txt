@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+
+Disallow: /admin
+Disallow: /superadmin
+Disallow: /users
+Disallow: /login
+Disallow: /register
+
+Sitemap: https://www.encuentratuchollo.com/sitemap.xml
